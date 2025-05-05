@@ -2,9 +2,12 @@ package com.example.fitcraft
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.widget.*
+import androidx.core.content.ContextCompat
 import com.android.volley.Request
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.HttpHeaderParser
@@ -14,8 +17,9 @@ import com.example.fitcraft.utils.Utility
 import org.json.JSONObject
 import java.nio.charset.Charset
 private val IMAGE_PICK_CODE = 1000
-class UserProfileActivity : Activity() {
 
+class UserProfileActivity : Activity() {
+    val REQUEST_IMAGE_CAPTURE = 1
     private lateinit var firstName: EditText
     private lateinit var middleName: EditText
     private lateinit var lastName: EditText
@@ -69,9 +73,11 @@ class UserProfileActivity : Activity() {
 
         val btnChangePhoto: ImageButton = findViewById(R.id.btnChangePhoto)
         btnChangePhoto.setOnClickListener {
-            val intent = Intent(Intent.ACTION_GET_CONTENT)
-            intent.type = "image/*"
-            startActivityForResult(Intent.createChooser(intent, "Select Picture"), IMAGE_PICK_CODE)
+           // val intent = Intent(Intent.ACTION_GET_CONTENT)
+            //intent.type = "image/*"
+            //startActivityForResult(Intent.createChooser(intent, "Select Picture"), IMAGE_PICK_CODE)
+            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE)
         }
 
     }
@@ -92,16 +98,24 @@ class UserProfileActivity : Activity() {
         isEditing = enabled
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.data != null) {
-            val uri = data.data
-            profilePic.setImageURI(uri)
+    //override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    //    super.onActivityResult(requestCode, resultCode, data)
+     //   if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.data != null) {
+     //       val uri = data.data
+     //       profilePic.setImageURI(uri)
 
             // Convert to base64
-            val inputStream = contentResolver.openInputStream(uri!!)
-            val bytes = inputStream!!.readBytes()
-            selectedImageBase64 = android.util.Base64.encodeToString(bytes, android.util.Base64.DEFAULT)
+      //      val inputStream = contentResolver.openInputStream(uri!!)
+      //      val bytes = inputStream!!.readBytes()
+      //      selectedImageBase64 = android.util.Base64.encodeToString(bytes, android.util.Base64.DEFAULT)
+       // }
+   // }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+            val imageBitmap = data?.extras?.get("data") as Bitmap
+            profilePic.setImageBitmap(imageBitmap) // Set the image in ImageView
         }
     }
 

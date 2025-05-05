@@ -64,7 +64,7 @@ class LoginActivity : Activity() {
                     Toast.makeText(this, "Login successful! Role: $role", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this, TailorDashboardActivity::class.java))
                 } else if (role == "user"){
-                    startActivity(Intent(this, MeasurementActivity::class.java))
+                    startActivity(Intent(this, UserProfileActivity::class.java))
                 }
 
             },
