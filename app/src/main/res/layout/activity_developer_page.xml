@@ -5,13 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="#EFE9D5">
+    android:background="@color/four">
 
     <LinearLayout
         android:id="@+id/main_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/back"
+            android:contentDescription="Back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/one" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,28 +38,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="OUR TEAM"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:textColor="#27445D"
+                android:textSize="30sp"
+                android:fontFamily="@font/poppins_extrabold"
+                android:textColor="@color/one"
                 android:gravity="center"
                 android:layout_marginBottom="8dp"/>
 
             <LinearLayout
                 android:layout_width="60dp"
                 android:layout_height="4dp"
-                android:background="#27445D"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal"
+                android:background="@color/one" />
 
             <TextView
                 android:id="@+id/teamIntroText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@font/poppins_light"
                 android:gravity="center"
                 android:lineSpacingExtra="4dp"
                 android:padding="16dp"
                 android:text="@string/team_intro"
-                android:textColor="#27445D"
+                android:textColor="@color/one"
                 android:textSize="16sp" />
 
         </LinearLayout>
@@ -64,14 +76,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@drawable/card_bg"
+                android:background="@drawable/roundedbutton"
                 android:layout_marginBottom="16dp"
                 android:elevation="4dp">
 
                 <LinearLayout
                     android:id="@+id/header_lovelie"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="80dp"
                     android:orientation="horizontal"
                     android:padding="12dp"
                     android:clickable="true"
@@ -97,13 +109,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="LOVELIE MHER CAMINGAWAN"
+                            android:fontFamily="@font/poppins_bold"
                             android:textSize="16sp"
                             android:textStyle="bold"
-                            android:textColor="#71bbb2"/>
+                            android:textColor="@color/four"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
                             android:text="Project Manager"
                             android:textSize="14sp"
                             android:textColor="#FEFEFE"/>
@@ -111,11 +125,11 @@
 
                     <ImageView
                         android:id="@+id/expand_icon_lovelie"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@android:drawable/arrow_down_float"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_gravity="center_vertical"
-                        app:tint="#EFCC3F" />
+                        android:src="@android:drawable/arrow_down_float"
+                        app:tint="@color/one" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -141,6 +155,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_light"
                             android:text="Loves strategic planning"
                             android:textSize="14sp"
                             android:textColor="#FEFEFE"
@@ -155,6 +170,7 @@
 
                             <TextView
                                 android:layout_width="32dp"
+                                android:fontFamily="@font/poppins_light"
                                 android:layout_height="32dp"
                                 android:text="🎨"
                                 android:textSize="16sp"
@@ -164,6 +180,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_light"
                                 android:text="Favorite Color: Black"
                                 android:textSize="14sp"
                                 android:textColor="#FEFEFE"
@@ -180,6 +197,7 @@
                             <TextView
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
+                                android:fontFamily="@font/poppins_light"
                                 android:text="🎮"
                                 android:textSize="16sp"
                                 android:gravity="center"
@@ -188,6 +206,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_light"
                                 android:text="Watching movies"
                                 android:textSize="14sp"
                                 android:textColor="#FEFEFE"
@@ -203,6 +222,7 @@
                             <TextView
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
+                                android:fontFamily="@font/poppins_light"
                                 android:text="💡"
                                 android:textSize="16sp"
                                 android:gravity="center"
@@ -211,7 +231,8 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Leadership, Agile, Problem-solving"
+                                android:fontFamily="@font/poppins_light"
+                                android:text="Leadership, Problem-solving, UI/UX Designer"
                                 android:textSize="14sp"
                                 android:textColor="#FEFEFE"
                                 android:layout_marginStart="12dp"/>
@@ -223,9 +244,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 android:orientation="vertical"
-                android:background="@drawable/card_bg"
+                android:background="@drawable/roundedbutton"
                 android:layout_marginBottom="16dp"
                 android:elevation="4dp">
 
@@ -259,12 +280,13 @@
                             android:layout_height="wrap_content"
                             android:text="LENRICK RYAN ESCASINAS"
                             android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="#71bbb2"/>
+                            android:fontFamily="@font/poppins_bold"
+                            android:textColor="@color/four"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
                             android:text="System Analyst"
                             android:textSize="14sp"
                             android:textColor="#FEFEFE"/>
@@ -272,11 +294,11 @@
 
                     <ImageView
                         android:id="@+id/expand_icon_lenrick"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:src="@android:drawable/arrow_down_float"
                         android:layout_gravity="center_vertical"
-                        app:tint="#EFCC3F" />
+                        app:tint="@color/one" />
                 </LinearLayout>
 
 
@@ -303,8 +325,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Passionate about UI/UX"
+                            android:text="Passionate about Technical Writing"
                             android:textSize="14sp"
+                            android:fontFamily="@font/poppins_light"
                             android:textColor="#FEFEFE"
                             android:layout_marginBottom="12dp"/>
 
@@ -320,6 +343,7 @@
                                 android:layout_height="32dp"
                                 android:text="🎨"
                                 android:textSize="16sp"
+                                android:fontFamily="@font/poppins_light"
                                 android:gravity="center"
                                 android:background="@drawable/circle_bg"/>
 
@@ -328,6 +352,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Favorite Color: Blue"
                                 android:textSize="14sp"
+                                android:fontFamily="@font/poppins_light"
                                 android:textColor="#FEFEFE"
                                 android:layout_marginStart="12dp"/>
                         </LinearLayout>
@@ -343,6 +368,7 @@
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
                                 android:text="🏋️"
+                                android:fontFamily="@font/poppins_light"
                                 android:textSize="16sp"
                                 android:gravity="center"
                                 android:background="@drawable/circle_bg"/>
@@ -352,6 +378,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Going to the gym"
                                 android:textSize="14sp"
+                                android:fontFamily="@font/poppins_light"
                                 android:textColor="#FEFEFE"
                                 android:layout_marginStart="12dp"/>
                         </LinearLayout>
@@ -368,13 +395,15 @@
                                 android:text="💡"
                                 android:textSize="16sp"
                                 android:gravity="center"
+                                android:fontFamily="@font/poppins_light"
                                 android:background="@drawable/circle_bg"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="UI/UX Design, Database Management"
+                                android:text="Tech Writer, Back-end Programmer"
                                 android:textSize="14sp"
+                                android:fontFamily="@font/poppins_light"
                                 android:textColor="#FEFEFE"
                                 android:layout_marginStart="12dp"/>
                         </LinearLayout>
@@ -384,9 +413,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 android:orientation="vertical"
-                android:background="@drawable/card_bg"
+                android:background="@drawable/roundedbutton"
                 android:layout_marginBottom="16dp"
                 android:elevation="4dp">
 
@@ -395,52 +424,52 @@
                     android:id="@+id/header_sherwin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="12dp"
                     android:clickable="true"
-                    android:focusable="true">
+                    android:focusable="true"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
 
                     <ImageView
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/sherwin"
+                        android:layout_gravity="center_vertical"
                         android:layout_marginEnd="12dp"
                         android:elevation="2dp"
-                        android:layout_gravity="center_vertical" />
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/sherwin" />
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_gravity="center_vertical">
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_bold"
                             android:text="SHERWIN FONTANAR"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="#71bbb2"/>
+                            android:textColor="@color/four"
+                            android:textSize="16sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
                             android:text="Software Engineer"
-                            android:textSize="14sp"
-                            android:textColor="#FEFEFE"/>
+                            android:textColor="#FEFEFE"
+                            android:textSize="14sp" />
                     </LinearLayout>
 
                     <ImageView
                         android:id="@+id/expand_icon_sherwin"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@android:drawable/arrow_down_float"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_gravity="center_vertical"
+                        android:src="@android:drawable/arrow_down_float"
                         app:tint="#EFCC3F" />
                 </LinearLayout>
-
 
                 <LinearLayout
                     android:id="@+id/expandable_sherwin"
@@ -466,6 +495,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Passion for coding"
+                            android:fontFamily="@font/poppins_light"
                             android:textSize="14sp"
                             android:textColor="#FEFEFE"
                             android:layout_marginBottom="12dp"/>
@@ -481,6 +511,7 @@
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
                                 android:text="🎨"
+                                android:fontFamily="@font/poppins_light"
                                 android:textSize="16sp"
                                 android:gravity="center"
                                 android:background="@drawable/circle_bg"/>
@@ -489,6 +520,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Favorite Color: Blue"
+                                android:fontFamily="@font/poppins_light"
                                 android:textSize="14sp"
                                 android:textColor="#FEFEFE"
                                 android:layout_marginStart="12dp"/>
@@ -505,6 +537,7 @@
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
                                 android:text="💻"
+                                android:fontFamily="@font/poppins_light"
                                 android:textSize="16sp"
                                 android:gravity="center"
                                 android:background="@drawable/circle_bg"/>
@@ -514,6 +547,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Coding projects"
                                 android:textSize="14sp"
+                                android:fontFamily="@font/poppins_light"
                                 android:textColor="#FEFEFE"
                                 android:layout_marginStart="12dp"/>
                         </LinearLayout>
@@ -528,6 +562,7 @@
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
                                 android:text="💡"
+                                android:fontFamily="@font/poppins_light"
                                 android:textSize="16sp"
                                 android:gravity="center"
                                 android:background="@drawable/circle_bg"/>
@@ -535,8 +570,9 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="UI/UX Design, Database Management"
+                                android:text="Back-end Programmer, Database Management"
                                 android:textSize="14sp"
+                                android:fontFamily="@font/poppins_light"
                                 android:textColor="#FEFEFE"
                                 android:layout_marginStart="12dp"/>
                         </LinearLayout>
@@ -544,16 +580,5 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-        <Button
-            android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Back"
-            android:textStyle="bold"
-            android:textColor="#fefefe"
-            android:layout_gravity="center"
-            android:backgroundTint="#71bbb2"
-            android:background="@drawable/card_bg"/>
-
     </LinearLayout>
 </ScrollView>
