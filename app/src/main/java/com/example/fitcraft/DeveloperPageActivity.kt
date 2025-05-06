@@ -23,8 +23,8 @@ class DeveloperPageActivity : Activity() {
         setupScrollView()
         setupExpandableCards()
 
-        val backlanding = findViewById<Button>(R.id.btn_back)
-        backlanding.setOnClickListener {
+        val backlanding = findViewById<ImageButton>(R.id.btnBack)
+            backlanding.setOnClickListener {
             Log.e("FitCraft Home", "Back is Clicked")
 
 

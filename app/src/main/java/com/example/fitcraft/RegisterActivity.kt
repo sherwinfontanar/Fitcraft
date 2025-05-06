@@ -21,9 +21,9 @@ class RegisterActivity : Activity() {
         setContentView(R.layout.activity_register)
 
         val email = findViewById<EditText>(R.id.email)
-        val password = findViewById<EditText>(R.id.confirmPassword)
-        val registerButton = findViewById<Button>(R.id.register)
-        val role = findViewById<EditText>(R.id.role)
+        val password = findViewById<EditText>(R.id.etConfirmPassword)
+        val registerButton = findViewById<Button>(R.id.btnRegister)
+        val role = findViewById<EditText>(R.id.etRole)
 
         registerButton.setOnClickListener {
             if (email.text.toString().isEmpty() || password.text.toString().isEmpty() || role.text.toString().isEmpty()) {

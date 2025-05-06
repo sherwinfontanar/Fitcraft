@@ -22,7 +22,7 @@ class SettingsActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        val backlanding = findViewById<ImageButton>(R.id.btnBackSettings)
+        val backlanding = findViewById<ImageButton>(R.id.btnBack)
         backlanding.setOnClickListener {
             Log.e("FitCraft Home", "Settings is Clicked")
 
