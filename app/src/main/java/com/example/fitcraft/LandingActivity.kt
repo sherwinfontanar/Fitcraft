@@ -37,7 +37,7 @@ class LandingActivity : Activity() {
             Log.e("FitCraft Home", "Settings is Clicked")
 
 
-            val intent = Intent(this, ProfileActivity::class.java)
+            val intent = Intent(this, UserProfileActivity::class.java)
             startActivity(intent)
         }
 
@@ -46,7 +46,7 @@ class LandingActivity : Activity() {
             Log.e("FitCraft Home", "Settings is Clicked")
 
 
-            val intent = Intent(this, ProfileActivity::class.java)
+            val intent = Intent(this, UserProfileActivity::class.java)
             startActivity(intent)
         }
 
