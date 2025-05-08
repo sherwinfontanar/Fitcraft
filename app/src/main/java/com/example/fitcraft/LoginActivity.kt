@@ -62,9 +62,10 @@ class LoginActivity : Activity() {
                 if (role == "tailor") {
                     Log.d(TAG, "Login successful: Token: $token Role: $role")
                     Toast.makeText(this, "Login successful! Role: $role", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, TailorDashboardActivity::class.java))
+                    startActivity(Intent(this, TailorProfileActivity::class.java))
                 } else if (role == "user"){
-                    startActivity(Intent(this, UserProfileActivity::class.java))
+                    startActivity(Intent(this, Cart::class.java))
+
                 }
 
             },
