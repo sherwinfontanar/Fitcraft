@@ -66,82 +66,199 @@
             android:layout_height="wrap_content"
             android:padding="16dp">
 
+            <!-- First, Middle, Last Name -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email"
+                android:text="Name"
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/white"
                 android:fontFamily="@font/poppins_bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="12dp"
+                android:weightSum="3">
+
+                <EditText
+                    android:id="@+id/firstName"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="4dp"
+                    android:hint="First"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="18dp"
+                    android:textColor="@color/two"
+                    android:background="@drawable/edit_text_background"
+                    android:padding="10dp" />
+
+                <EditText
+                    android:id="@+id/middleName"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="4dp"
+                    android:hint="Middle"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="18dp"
+                    android:textColor="@color/two"
+                    android:background="@drawable/edit_text_background"
+                    android:padding="10dp" />
+
+                <EditText
+                    android:id="@+id/lastName"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:hint="Last"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="18dp"
+                    android:textColor="@color/two"
+                    android:background="@drawable/edit_text_background"
+                    android:padding="10dp" />
+            </LinearLayout>
+
+            <!-- Address Fields -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/poppins_bold" />
+
+            <!-- Province, City, Barangay -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp"
+                android:weightSum="3">
+
+                <EditText
+                    android:id="@+id/province"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="4dp"
+                    android:layout_height="50dp"
+                    android:hint="Province"
+                    android:background="@drawable/edit_text_background"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="18dp"
+                    android:textColor="@color/two"
+                    android:padding="10dp" />
+
+                <EditText
+                    android:id="@+id/city"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="4dp"
+                    android:layout_height="50dp"
+                    android:hint="City"
+                    android:background="@drawable/edit_text_background"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="18dp"
+                    android:textColor="@color/two"
+                    android:padding="10dp" />
+
+                <EditText
+                    android:id="@+id/barangay"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:hint="Barangay"
+                    android:background="@drawable/edit_text_background"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="18dp"
+                    android:textColor="@color/two"
+                    android:padding="10dp" />
+            </LinearLayout>
+
+            <!-- Sitio, Street -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp"
+                android:weightSum="2">
+
+                <EditText
+                    android:id="@+id/sitio"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="4dp"
+                    android:layout_height="50dp"
+                    android:hint="Sitio"
+                    android:background="@drawable/edit_text_background"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="18dp"
+                    android:textColor="@color/two"
+                    android:padding="10dp" />
+
+                <EditText
+                    android:id="@+id/street"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:hint="Street"
+                    android:background="@drawable/edit_text_background"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="18dp"
+                    android:textColor="@color/two"
+                    android:padding="10dp" />
+            </LinearLayout>
+
+            <!-- Building / House Number -->
+            <EditText
+                android:id="@+id/building"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="12dp"
+                android:hint="House/Building Number"
+                android:background="@drawable/edit_text_background"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="18dp"
+                android:textColor="@color/two"
+                android:padding="10dp" />
+
+            <!-- Use Current Location Button -->
+            <Button
+                android:id="@+id/useLocationButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="16dp"
+                android:text="Use Current Location"
+                android:fontFamily="@font/poppins_bold"
+                android:background="@drawable/rounded"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+
+            <!-- Email -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="Email"
+                android:textColor="@color/white"
+                android:fontFamily="@font/poppins_bold"
+                android:textSize="18dp"/>
 
             <EditText
                 android:id="@+id/email"
                 android:hint="Email"
                 android:background="@drawable/edit_text_background"
                 android:layout_width="match_parent"
-                android:padding="10dp"
-                android:fontFamily="@font/poppins_regular"
-                android:textColor="@color/two"
-                android:layout_height="50dp"
-                android:layout_marginBottom="12dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="First Name"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/white"
-                android:fontFamily="@font/poppins_bold" />
-
-            <EditText
-                android:id="@+id/firstName"
-                android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="12dp"
                 android:fontFamily="@font/poppins_regular"
+                android:textSize="18dp"
                 android:textColor="@color/two"
-                android:background="@drawable/edit_text_background"
-                android:hint="First Name"
                 android:padding="10dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Middle Name"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/white"
-                android:fontFamily="@font/poppins_bold" />
-
-            <EditText
-                android:id="@+id/middleName"
-                android:hint="Middle Name"
-                android:background="@drawable/edit_text_background"
-                android:layout_width="match_parent"
-                android:fontFamily="@font/poppins_regular"
-                android:textColor="@color/two"
-                android:padding="10dp"
-                android:layout_height="50dp"
-                android:layout_marginBottom="12dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Last Name"
-                android:textColor="@color/white"
-                android:fontFamily="@font/poppins_bold"
-                android:layout_marginBottom="5dp"/>
-
-            <EditText
-                android:id="@+id/lastName"
-                android:hint="Last Name"
-                android:background="@drawable/edit_text_background"
-                android:layout_width="match_parent"
-                android:fontFamily="@font/poppins_regular"
-                android:textColor="@color/two"
-                android:padding="10dp"
-                android:layout_height="50dp"
-                android:layout_marginBottom="12dp" />
-
+            <!-- Phone Number -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -155,12 +272,13 @@
                 android:hint="Phone Number"
                 android:background="@drawable/edit_text_background"
                 android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="12dp"
                 android:fontFamily="@font/poppins_regular"
                 android:textColor="@color/two"
-                android:padding="10dp"
-                android:layout_height="50dp"
-                android:layout_marginBottom="12dp" />
+                android:padding="10dp" />
 
+            <!-- Action Buttons -->
             <Button
                 android:id="@+id/editButton"
                 android:layout_width="match_parent"
@@ -169,7 +287,7 @@
                 android:background="@drawable/roundedtwo"
                 android:fontFamily="@font/poppins_bold"
                 android:textColor="@color/white"
-                android:textSize="14dp"
+                android:textSize="16dp"
                 android:text="Edit" />
 
             <Button
@@ -180,10 +298,11 @@
                 android:background="@drawable/rounded"
                 android:fontFamily="@font/poppins_bold"
                 android:textColor="@color/white"
-                android:textSize="14dp"
-                android:text="Cancel"/>
+                android:textSize="16dp"
+                android:text="Cancel" />
 
         </LinearLayout>
+
     </ScrollView>
     <LinearLayout
         android:layout_width="match_parent"
