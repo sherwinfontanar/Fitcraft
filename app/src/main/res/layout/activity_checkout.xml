@@ -59,7 +59,7 @@
                         android:id="@+id/ivLocation"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/location"
+                        android:src="@drawable/location2"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
