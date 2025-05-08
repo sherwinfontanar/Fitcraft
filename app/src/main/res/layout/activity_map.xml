@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/map_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MapActivity">
+
+    <!-- Google Map Fragment for standard Activity -->
+    <fragment
+        android:id="@+id/map_fragment"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="16dp"
+        android:layout_gravity="top|start"
+        android:background="@android:drawable/btn_default"
+        android:src="@android:drawable/ic_menu_revert"
+        android:contentDescription="Back" />
+
+    <Button
+        android:id="@+id/btn_save_location"
+        android:layout_width="180dp"
+        android:layout_height="73dp"
+        android:layout_gravity="bottom|center"
+        android:layout_margin="16dp"
+        android:text="Save Location"
+        android:textSize="20sp" />
+
+    <!-- Regular ImageButton instead of FloatingActionButton -->
+    <ImageButton
+        android:id="@+id/fab_search"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="top|end"
+        android:layout_margin="16dp"
+        android:background="@android:drawable/btn_default"
+        android:src="@android:drawable/ic_menu_search"
+        android:contentDescription="Search" />
+
+</FrameLayout>

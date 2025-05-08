@@ -1,5 +1,6 @@
 package com.example.fitcraft
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -16,6 +17,7 @@ import org.json.JSONObject
 class RegisterActivity : Activity() {
     private val TAG = "RegisterActivity"
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
