@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     android:padding="16dp">
 
     <LinearLayout
@@ -9,179 +10,260 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Edit Button -->
+        <!-- Header -->
         <TextView
-            android:id="@+id/btnEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Edit"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/holo_blue_dark"
-            android:layout_gravity="end"
-            android:padding="8dp" />
-
-        <!-- BUST -->
-        <TextView
+            android:id="@+id/measurement"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Bust"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp" />
+            android:text="Your Body Measurements"
+            android:textSize="20sp"
+            android:fontFamily="@font/poppins_bold"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:paddingBottom="16dp" />
 
-        <EditText
-            android:id="@+id/bustValue"
+        <!-- Two-column section for Bust, Waist, Hips, Shoulder Width -->
+        <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:enabled="false"
-            android:inputType="numberDecimal" />
+            android:columnCount="2"
+            android:rowCount="2"
+            android:columnOrderPreserved="false"
+            android:useDefaultMargins="true">
 
-        <!-- WAIST -->
-        <TextView
+            <!-- Bust -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Bust"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/poppins_bold" />
+
+                <EditText
+                    android:id="@+id/bustValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="16dp"
+                    android:background="@drawable/edit_text_background"
+                    android:padding="8dp"
+                    android:enabled="false"
+                    android:inputType="numberDecimal" />
+            </LinearLayout>
+
+            <!-- Waist -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Waist"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/poppins_bold" />
+
+                <EditText
+                    android:id="@+id/waistValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edit_text_background"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="16dp"
+                    android:padding="8dp"
+                    android:enabled="false"
+                    android:inputType="numberDecimal" />
+            </LinearLayout>
+
+            <!-- Hips -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Hips"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/poppins_bold" />
+
+                <EditText
+                    android:id="@+id/hipsValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edit_text_background"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="16dp"
+                    android:padding="8dp"
+                    android:enabled="false"
+                    android:inputType="numberDecimal" />
+            </LinearLayout>
+
+            <!-- Shoulder Width -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Shoulder Width"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/poppins_bold" />
+
+                <EditText
+                    android:id="@+id/shoulderValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edit_text_background"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="16dp"
+                    android:padding="8dp"
+                    android:enabled="false"
+                    android:inputType="numberDecimal" />
+            </LinearLayout>
+        </GridLayout>
+
+        <!-- Single-column fields -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Waist"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp" />
+            android:orientation="vertical"
+            android:layout_marginTop="12dp">
 
-        <EditText
-            android:id="@+id/waistValue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:enabled="false"
-            android:inputType="numberDecimal" />
+            <!-- Sleeve Length -->
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Sleeve Length"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/poppins_bold" />
 
-        <!-- HIPS -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hips"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp" />
+            <EditText
+                android:id="@+id/sleeveValue"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/edit_text_background"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="16dp"
+                android:padding="8dp"
+                android:enabled="false"
+                android:inputType="numberDecimal" />
 
-        <EditText
-            android:id="@+id/hipsValue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:enabled="false"
-            android:inputType="numberDecimal" />
+            <!-- Neck to Waist -->
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Neck to Waist"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/poppins_bold"
+                android:layout_marginTop="12dp" />
 
-        <!-- SHOULDER WIDTH -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Shoulder Width"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp" />
+            <EditText
+                android:id="@+id/neckToWaistValue"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/edit_text_background"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="16dp"
+                android:padding="8dp"
+                android:enabled="false"
+                android:inputType="numberDecimal" />
 
-        <EditText
-            android:id="@+id/shoulderValue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:enabled="false"
-            android:inputType="numberDecimal" />
+            <!-- Waist to Hem -->
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Waist to Hem"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/poppins_bold"
+                android:layout_marginTop="12dp" />
 
-        <!-- SLEEVE LENGTH -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Sleeve Length"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp" />
+            <EditText
+                android:id="@+id/waistToHemValue"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/edit_text_background"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="16dp"
+                android:padding="8dp"
+                android:enabled="false"
+                android:inputType="numberDecimal" />
 
-        <EditText
-            android:id="@+id/sleeveValue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:enabled="false"
-            android:inputType="numberDecimal" />
+            <!-- Body Type -->
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Body Type"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/poppins_bold"
+                android:layout_marginTop="12dp" />
 
-        <!-- NECK TO WAIST -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Neck to Waist"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp" />
+            <EditText
+                android:id="@+id/bodyTypeValue"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/edit_text_background"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="16dp"
+                android:padding="8dp"
+                android:enabled="false"
+                android:inputType="text" />
 
-        <EditText
-            android:id="@+id/neckToWaistValue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:enabled="false"
-            android:inputType="numberDecimal" />
+            <!-- Skin Color -->
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Skin Color"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/poppins_bold"
+                android:layout_marginTop="12dp" />
 
-        <!-- WAIST TO HERN -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Waist to Hern"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp" />
+            <EditText
+                android:id="@+id/skinColorValue"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/edit_text_background"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="16dp"
+                android:padding="8dp"
+                android:enabled="false"
+                android:inputType="text" />
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/waistToHemValue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:enabled="false"
-            android:inputType="numberDecimal" />
-
-        <!-- BODY TYPE -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Body Type"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp" />
-
-        <EditText
-            android:id="@+id/bodyTypeValue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:enabled="false"
-            android:inputType="text" />
-
-        <!-- SKIN COLOR -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Skin Color"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp" />
-
-        <EditText
-            android:id="@+id/skinColorValue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:enabled="false"
-            android:inputType="text" />
-
-        <!-- SAVE BUTTON -->
+        <!-- Save Button -->
         <Button
+
             android:id="@+id/saveButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:text="Save"
+            android:enabled="false"
             android:layout_marginTop="24dp"
-            android:enabled="false" />
-
+            android:layout_marginBottom="32dp"
+            android:textColor="@android:color/white"
+            android:fontFamily="@font/poppins_bold"
+            android:textSize="16dp"/>
     </LinearLayout>
 </ScrollView>
