@@ -38,14 +38,12 @@ class RegisterActivity : Activity() {
 
         // Set up the spinner
         val roles = arrayOf("Customer", "Tailor")
-        val poppinsRegular = Typeface.createFromAsset(assets, "fonts/poppins_regular.ttf")
         val adapter = object : ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, roles) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                 val view = super.getView(position, convertView, parent)
                 val textView = view.findViewById<TextView>(android.R.id.text1)
                 textView.setTextColor(resources.getColor(R.color.one))
                 textView.textSize = 14f
-                textView.typeface = poppinsRegular
                 return view
             }
 
@@ -54,7 +52,6 @@ class RegisterActivity : Activity() {
                 val textView = view.findViewById<TextView>(android.R.id.text1)
                 textView.setTextColor(resources.getColor(R.color.one))
                 textView.textSize = 14f
-                textView.typeface = poppinsRegular
                 return view
             }
         }
