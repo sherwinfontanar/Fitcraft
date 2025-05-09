@@ -1,5 +1,6 @@
 package com.example.fitcraft
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -18,6 +19,12 @@ class CheckoutActivity : Activity() {
         val placeOrder = findViewById<Button>(R.id.btnPlaceOrder)
         placeOrder.setOnClickListener {
             val intent = Intent(this, UserProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        val back = findViewById<ImageButton>(R.id.btnBack)
+        back.setOnClickListener {
+            val intent = Intent(this, Cart::class.java)
             startActivity(intent)
         }
 

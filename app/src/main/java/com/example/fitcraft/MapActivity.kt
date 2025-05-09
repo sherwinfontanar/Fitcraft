@@ -16,6 +16,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.example.fitcraft.TailorProfileActivity
+import com.example.fitcraft.utils.GeocoderHelper
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -180,19 +181,9 @@ class MapActivity : Activity(), OnMapReadyCallback {
     }
 
     private fun reverseGeocodeLocation(latLng: LatLng, callback: (String?) -> Unit) {
-        val geocoder = Geocoder(this, Locale.getDefault())
-        try {
-            val addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
-            if (!addresses.isNullOrEmpty()) {
-                val selectedAddress = addresses[0].getAddressLine(0)
-                callback(selectedAddress)
-            } else {
-                callback(null)
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-            callback(null)
-        }
+        val geocoderHelper = GeocoderHelper(this)
+        val addressString = geocoderHelper.getAddressStringFromLatLng(latLng.latitude, latLng.longitude)
+        callback(addressString)
     }
 
     private fun setupMapClickForAddressSelection() {
@@ -220,30 +211,59 @@ class MapActivity : Activity(), OnMapReadyCallback {
         val position = userMarker?.position
         val addressTitle = userMarker?.title
 
-        if (position != null && addressTitle != null) {
-            // Remove the condition checking if title is "Your Location"
+        if (position != null) {
+            // Get detailed address components using our helper
+            val geocoderHelper = GeocoderHelper(this)
+            val addressComponents = geocoderHelper.getDetailedAddressFromLatLng(
+                position.latitude,
+                position.longitude
+            )
+
+            // Save to SharedPreferences
             val prefs = getSharedPreferences("AppPrefs", MODE_PRIVATE)
+            val editor = prefs.edit()
 
-            // Save to different keys based on type
-            val addressKey = if (addressType == "TAILOR_ADDRESS") "saved_tailor_address" else "saved_address"
-            val latKey = if (addressType == "TAILOR_ADDRESS") "saved_tailor_lat" else "saved_lat"
-            val lngKey = if (addressType == "TAILOR_ADDRESS") "saved_tailor_lng" else "saved_lng"
+            // Save address string
+            editor.putString(
+                if (addressType == "TAILOR_ADDRESS") "saved_tailor_address" else "saved_address",
+                addressTitle
+            )
 
-            prefs.edit()
-                .putString(addressKey, addressTitle)
-                .putFloat(latKey, position.latitude.toFloat())
-                .putFloat(lngKey, position.longitude.toFloat())
-                .apply()
+            // Save coordinates
+            editor.putFloat(
+                if (addressType == "TAILOR_ADDRESS") "saved_tailor_lat" else "saved_lat",
+                position.latitude.toFloat()
+            )
+            editor.putFloat(
+                if (addressType == "TAILOR_ADDRESS") "saved_tailor_lng" else "saved_lng",
+                position.longitude.toFloat()
+            )
+
+            // Save address components for UserProfileActivity to use
+            if (addressType != "TAILOR_ADDRESS") {
+                addressComponents.forEach { (key, value) ->
+                    editor.putString("user_address_$key", value)
+                }
+            }
+
+            editor.apply()
 
             Toast.makeText(this, "Location saved!", Toast.LENGTH_SHORT).show()
 
-            // Navigate to the appropriate activity based on address type
+            // Return results to calling activity if appropriate
             val intent = if (addressType == "TAILOR_ADDRESS") {
                 Intent(this, TailorProfileActivity::class.java)
             } else {
                 Intent(this, UserProfileActivity::class.java)
             }
+
+            // Add address components as extras if needed
+            addressComponents.forEach { (key, value) ->
+                intent.putExtra(key, value)
+            }
+
             startActivity(intent)
+            finish()
         } else {
             Toast.makeText(this, "Please select a location first.", Toast.LENGTH_SHORT).show()
         }
