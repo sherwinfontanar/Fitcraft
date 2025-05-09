@@ -3,6 +3,7 @@ package com.example.fitcraft
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.widget.*
 import com.android.volley.Request
@@ -22,6 +23,21 @@ class LoginActivity : Activity() {
         val passwordInput = findViewById<EditText>(R.id.etPassword)
         val loginButton = findViewById<Button>(R.id.btnSignIn)
         val registerButton = findViewById<TextView>(R.id.btnRegister)
+        val btnBack = findViewById<ImageButton>(R.id.btnBack)
+        val btnShowPassword = findViewById<ImageView>(R.id.btnShowPassword)
+        val forgotPassword = findViewById<TextView>(R.id.tvForgotPassword)
+
+        btnBack.setOnClickListener {
+            finish()
+        }
+
+        btnShowPassword.setOnClickListener {
+            togglePasswordVisibility(passwordInput, btnShowPassword)
+        }
+
+        forgotPassword.setOnClickListener {
+            startActivity(Intent(this, ForgotPasswordActivity::class.java))
+        }
 
         loginButton.setOnClickListener {
             val email = emailInput.text.toString()
@@ -40,6 +56,17 @@ class LoginActivity : Activity() {
         }
     }
 
+    private fun togglePasswordVisibility(editText: EditText, button: ImageView) {
+        if (editText.inputType == InputType.TYPE_CLASS_TEXT) {
+            editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            button.setImageResource(R.drawable.eye)
+        } else {
+            editText.inputType = InputType.TYPE_CLASS_TEXT
+            button.setImageResource(R.drawable.eye_off)
+        }
+        editText.setSelection(editText.text.length)
+    }
+
     private fun loginUser(email: String, password: String) {
         val url = "${Utility.apiUrl}/api/login"
 
@@ -55,23 +82,28 @@ class LoginActivity : Activity() {
                 Utility.token = token
                 val role = response.getJSONObject("user").optString("role")
 
-
-                // You can now use token to access protected routes
-
-                // TODO: Save token to SharedPreferences if needed
-                if (role == "tailor") {
-                    Log.d(TAG, "Login successful: Token: $token Role: $role")
-                    Toast.makeText(this, "Login successful! Role: $role", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, TailorProfileActivity::class.java))
-                } else if (role == "user"){
-                    startActivity(Intent(this, UserProfileActivity::class.java))
-
+                val intent = when (role) {
+                    "Customer" -> Intent(this, UserDashboardActivity::class.java)
+                    "Tailor" -> Intent(this, TailorDashboardActivity::class.java)
+                    else -> Intent(this, LoginActivity::class.java)
                 }
-
+                startActivity(intent)
+                finish()
             },
             { error ->
                 Log.e(TAG, "Login error: ${error.message}")
-                Toast.makeText(this, "Login failed. Check your credentials.", Toast.LENGTH_LONG).show()
+                val errorMessage = when {
+                    error.networkResponse != null && error.networkResponse.data != null -> {
+                        try {
+                            val errorJson = JSONObject(String(error.networkResponse.data))
+                            errorJson.optString("message", "Login failed")
+                        } catch (e: Exception) {
+                            "Login failed"
+                        }
+                    }
+                    else -> "Network error. Please try again."
+                }
+                Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
             }
         )
 
