@@ -221,8 +221,8 @@
 
                 <ImageView
                     android:id="@+id/btnShowPassword"
-                    android:layout_width="23dp"
-                    android:layout_height="16dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_marginEnd="16dp"
                     android:contentDescription="Show Password"
                     android:src="@drawable/eye"
