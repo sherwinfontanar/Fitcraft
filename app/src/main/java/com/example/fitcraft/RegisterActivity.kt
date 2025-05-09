@@ -3,11 +3,14 @@ package com.example.fitcraft
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.view.View
+import android.view.ViewGroup
+import android.widget.*
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -22,28 +25,101 @@ class RegisterActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        val email = findViewById<EditText>(R.id.email)
-        val password = findViewById<EditText>(R.id.etConfirmPassword)
+        val email = findViewById<EditText>(R.id.etEmail)
+        val password = findViewById<EditText>(R.id.etPassword)
+        val confirmPassword = findViewById<EditText>(R.id.etConfirmPassword)
+        val firstName = findViewById<EditText>(R.id.etFirstName)
+        val lastName = findViewById<EditText>(R.id.etLastName)
         val registerButton = findViewById<Button>(R.id.btnRegister)
-        val role = findViewById<EditText>(R.id.etRole)
+        val spinnerRole = findViewById<Spinner>(R.id.spinnerRole)
+        val btnBack = findViewById<ImageButton>(R.id.btnBack)
+        val btnShowPassword = findViewById<ImageView>(R.id.btnShowPassword)
+        val btnShowCPassword = findViewById<ImageView>(R.id.btnShowCPassword)
+
+        // Set up the spinner
+        val roles = arrayOf("Customer", "Tailor")
+        val poppinsRegular = Typeface.createFromAsset(assets, "fonts/poppins_regular.ttf")
+        val adapter = object : ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, roles) {
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = super.getView(position, convertView, parent)
+                val textView = view.findViewById<TextView>(android.R.id.text1)
+                textView.setTextColor(resources.getColor(R.color.one))
+                textView.textSize = 14f
+                textView.typeface = poppinsRegular
+                return view
+            }
+
+            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = super.getDropDownView(position, convertView, parent)
+                val textView = view.findViewById<TextView>(android.R.id.text1)
+                textView.setTextColor(resources.getColor(R.color.one))
+                textView.textSize = 14f
+                textView.typeface = poppinsRegular
+                return view
+            }
+        }
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerRole.adapter = adapter
+
+        // Back button click listener
+        btnBack.setOnClickListener {
+            finish()
+        }
+
+        // Password visibility toggle
+        btnShowPassword.setOnClickListener {
+            togglePasswordVisibility(password, btnShowPassword)
+        }
+
+        btnShowCPassword.setOnClickListener {
+            togglePasswordVisibility(confirmPassword, btnShowCPassword)
+        }
 
         registerButton.setOnClickListener {
-            if (email.text.toString().isEmpty() || password.text.toString().isEmpty() || role.text.toString().isEmpty()) {
+            if (email.text.toString().isEmpty() || 
+                password.text.toString().isEmpty() || 
+                confirmPassword.text.toString().isEmpty() ||
+                firstName.text.toString().isEmpty() ||
+                lastName.text.toString().isEmpty()) {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            registerUser(email.text.toString(), password.text.toString(), role.text.toString())
+            if (password.text.toString() != confirmPassword.text.toString()) {
+                Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            registerUser(
+                email.text.toString(),
+                password.text.toString(),
+                spinnerRole.selectedItem.toString(),
+                firstName.text.toString(),
+                lastName.text.toString()
+            )
         }
     }
 
-    private fun registerUser(email: String, password: String, role: String) {
+    private fun togglePasswordVisibility(editText: EditText, button: ImageView) {
+        if (editText.inputType == InputType.TYPE_CLASS_TEXT) {
+            editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            button.setImageResource(R.drawable.eye)
+        } else {
+            editText.inputType = InputType.TYPE_CLASS_TEXT
+            button.setImageResource(R.drawable.eye_off)
+        }
+        editText.setSelection(editText.text.length)
+    }
+
+    private fun registerUser(email: String, password: String, role: String, firstName: String, lastName: String) {
         val url = "${Utility.apiUrl}/api/register"
 
         val requestBody = JSONObject().apply {
             put("email", email)
             put("password", password)
             put("role", role)
+            put("firstName", firstName)
+            put("lastName", lastName)
         }
 
         val jsonObjectRequest = JsonObjectRequest(
