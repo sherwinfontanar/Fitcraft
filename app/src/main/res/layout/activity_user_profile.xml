@@ -77,21 +77,20 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginBottom="12dp"
-                android:padding="3dp"
                 android:weightSum="3">
 
                 <EditText
                     android:id="@+id/firstName"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="40dp"
+                    android:layout_height="50dp"
                     android:layout_marginEnd="4dp"
                     android:hint="First"
                     android:fontFamily="@font/poppins_regular"
-                    android:textSize="14dp"
+                    android:textSize="18dp"
                     android:textColor="@color/two"
                     android:background="@drawable/edit_text_background"
                     android:padding="10dp" />
@@ -100,11 +99,11 @@
                     android:id="@+id/middleName"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="40dp"
+                    android:layout_height="50dp"
                     android:layout_marginEnd="4dp"
                     android:hint="Middle"
                     android:fontFamily="@font/poppins_regular"
-                    android:textSize="14dp"
+                    android:textSize="18dp"
                     android:textColor="@color/two"
                     android:background="@drawable/edit_text_background"
                     android:padding="10dp" />
@@ -113,10 +112,10 @@
                     android:id="@+id/lastName"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="40dp"
+                    android:layout_height="50dp"
                     android:hint="Last"
                     android:fontFamily="@font/poppins_regular"
-                    android:textSize="14dp"
+                    android:textSize="18dp"
                     android:textColor="@color/two"
                     android:background="@drawable/edit_text_background"
                     android:padding="10dp" />
@@ -131,25 +130,24 @@
                 android:textColor="@color/white"
                 android:fontFamily="@font/poppins_bold" />
 
-            <!-- Province + City -->
+            <!-- Province, City, Barangay -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="3dp"
                 android:layout_marginBottom="8dp"
-                android:weightSum="2">
+                android:weightSum="3">
 
                 <EditText
                     android:id="@+id/province"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_marginEnd="4dp"
-                    android:layout_height="40dp"
+                    android:layout_height="50dp"
                     android:hint="Province"
                     android:background="@drawable/edit_text_background"
                     android:fontFamily="@font/poppins_regular"
-                    android:textSize="14dp"
+                    android:textSize="18dp"
                     android:textColor="@color/two"
                     android:padding="10dp" />
 
@@ -157,51 +155,29 @@
                     android:id="@+id/city"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="40dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_height="50dp"
                     android:hint="City"
                     android:background="@drawable/edit_text_background"
                     android:fontFamily="@font/poppins_regular"
-                    android:textSize="14dp"
+                    android:textSize="18dp"
                     android:textColor="@color/two"
                     android:padding="10dp" />
-            </LinearLayout>
-
-            <!-- Barangay + Sitio -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="3dp"
-                android:layout_marginBottom="8dp"
-                android:weightSum="2">
 
                 <EditText
                     android:id="@+id/barangay"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_marginEnd="4dp"
-                    android:layout_height="40dp"
+                    android:layout_height="50dp"
                     android:hint="Barangay"
                     android:background="@drawable/edit_text_background"
                     android:fontFamily="@font/poppins_regular"
-                    android:textSize="14dp"
-                    android:textColor="@color/two"
-                    android:padding="10dp" />
-
-                <EditText
-                    android:id="@+id/sitio"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="40dp"
-                    android:hint="Sitio"
-                    android:background="@drawable/edit_text_background"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textSize="14dp"
+                    android:textSize="18dp"
                     android:textColor="@color/two"
                     android:padding="10dp" />
             </LinearLayout>
 
-            <!-- Street + House/Building No. -->
+            <!-- Sitio, Street -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -210,36 +186,49 @@
                 android:weightSum="2">
 
                 <EditText
-                    android:id="@+id/street"
+                    android:id="@+id/sitio"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_marginEnd="4dp"
-                    android:layout_height="40dp"
-                    android:hint="Street"
+                    android:layout_height="50dp"
+                    android:hint="Sitio"
                     android:background="@drawable/edit_text_background"
                     android:fontFamily="@font/poppins_regular"
-                    android:textSize="14dp"
+                    android:textSize="18dp"
                     android:textColor="@color/two"
                     android:padding="10dp" />
 
                 <EditText
-                    android:id="@+id/houseNumber"
+                    android:id="@+id/street"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="40dp"
-                    android:hint="House/Building No."
+                    android:layout_height="50dp"
+                    android:hint="Street"
                     android:background="@drawable/edit_text_background"
                     android:fontFamily="@font/poppins_regular"
-                    android:textSize="14dp"
+                    android:textSize="18dp"
                     android:textColor="@color/two"
                     android:padding="10dp" />
             </LinearLayout>
 
+            <!-- Building / House Number -->
+            <EditText
+                android:id="@+id/building"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="12dp"
+                android:hint="House/Building Number"
+                android:background="@drawable/edit_text_background"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="18dp"
+                android:textColor="@color/two"
+                android:padding="10dp" />
+
+            <!-- Use Current Location Button -->
             <Button
                 android:id="@+id/useLocationButton"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="50dp"
                 android:layout_marginBottom="16dp"
                 android:text="Use Current Location"
                 android:fontFamily="@font/poppins_bold"
@@ -254,17 +243,18 @@
                 android:layout_marginBottom="5dp"
                 android:text="Email"
                 android:textColor="@color/white"
-                android:fontFamily="@font/poppins_bold"/>
+                android:fontFamily="@font/poppins_bold"
+                android:textSize="18dp"/>
 
             <EditText
                 android:id="@+id/email"
                 android:hint="Email"
                 android:background="@drawable/edit_text_background"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:layout_marginBottom="12dp"
                 android:fontFamily="@font/poppins_regular"
-                android:textSize="14dp"
+                android:textSize="18dp"
                 android:textColor="@color/two"
                 android:padding="10dp" />
 
@@ -282,10 +272,9 @@
                 android:hint="Phone Number"
                 android:background="@drawable/edit_text_background"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:layout_marginBottom="12dp"
                 android:fontFamily="@font/poppins_regular"
-                android:textSize="14dp"
                 android:textColor="@color/two"
                 android:padding="10dp" />
 
@@ -293,7 +282,7 @@
             <Button
                 android:id="@+id/editButton"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/roundedtwo"
                 android:fontFamily="@font/poppins_bold"
@@ -304,7 +293,7 @@
             <Button
                 android:id="@+id/saveButton"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/rounded"
                 android:fontFamily="@font/poppins_bold"

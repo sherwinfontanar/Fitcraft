@@ -35,7 +35,7 @@ class Splash : Activity() {
 
             if (Math.abs(diffX) > Math.abs((e2?.y ?: 0f) - (e1?.y ?: 0f))) {
                 if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
-                    if (diffX > 0) { // right swipe
+                    if (diffX < 0) { // left swipe
                         val intent = Intent(this@Splash, LoginActivity::class.java)
                         startActivity(intent)
                         overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
