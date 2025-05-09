@@ -50,7 +50,6 @@ class MeasurementActivity : Activity() {
         skinColor = findViewById(R.id.skinColorValue)
 
         saveButton = findViewById(R.id.saveButton)
-        editButton = findViewById(R.id.btnEdit)
 
         setEditing(false)
         loadMeasurements()
