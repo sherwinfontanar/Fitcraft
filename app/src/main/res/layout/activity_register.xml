@@ -15,7 +15,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/back"
-        android:contentDescription="Back"
+        android:contentDescription="back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/white" />
@@ -28,6 +28,7 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/logo_fitcraft"
         app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="Fitcract Name Logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -103,6 +104,7 @@
                 android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@id/tvFirstName"
                 app:layout_constraintStart_toStartOf="parent"
+                android:autofillHints=""
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <!-- Last Name -->
@@ -221,8 +223,8 @@
 
                 <ImageView
                     android:id="@+id/btnShowPassword"
-                    android:layout_width="23dp"
-                    android:layout_height="16dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_marginEnd="16dp"
                     android:contentDescription="Show Password"
                     android:src="@drawable/eye"
