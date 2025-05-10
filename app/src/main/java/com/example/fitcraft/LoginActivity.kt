@@ -83,8 +83,8 @@ class LoginActivity : Activity() {
                 val role = response.getJSONObject("user").optString("role")
 
                 val intent = when (role) {
-                    "Customer" -> Intent(this, UserDashboardActivity::class.java)
-                    "Tailor" -> Intent(this, TailorDashboardActivity::class.java)
+                    "user" -> Intent(this, UserProfileActivity::class.java)
+                    "tailor" -> Intent(this, TailorProfileActivity::class.java)
                     else -> Intent(this, LoginActivity::class.java)
                 }
                 startActivity(intent)
