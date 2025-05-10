@@ -48,6 +48,7 @@ class MeasurementActivity : Activity() {
         waistToHern = findViewById(R.id.waistToHemValue)
         bodyType = findViewById(R.id.bodyTypeValue)
         skinColor = findViewById(R.id.skinColorValue)
+        editButton = findViewById(R.id.editButton)
 
         saveButton = findViewById(R.id.saveButton)
 
