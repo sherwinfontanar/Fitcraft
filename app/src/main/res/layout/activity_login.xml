@@ -189,7 +189,7 @@
             android:fontFamily="@font/poppins_regular"
             android:gravity="center"
             android:padding="14dp"
-            android:text="Sign In"
+            android:text="SIGN IN"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="16sp"
