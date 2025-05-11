@@ -75,7 +75,8 @@ dependencies {
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation("com.google.android.gms:play-services-location:21.0.1")
     implementation("com.stripe:stripe-android:20.46.0")
-
+    implementation("androidx.cardview:cardview:1.0.0")
+    implementation("com.squareup.picasso:picasso:2.8")
     implementation(libs.circleimageview)
     implementation(libs.volley)
     implementation (libs.retrofit)

@@ -133,6 +133,12 @@ class UserProfileActivity : Activity() {
             startActivity(intent)
         }
 
+        val purchase = findViewById<TextView>(R.id.homebutton)
+        purchase.setOnClickListener {
+            val intent = Intent(this, PurchasesActivity::class.java)
+            startActivity(intent)
+        }
+
         findViewById<ImageView>(R.id.logout).setOnClickListener {
             Utility.clearToken()
             navigateToLogin()
