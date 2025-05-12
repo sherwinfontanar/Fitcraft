@@ -170,7 +170,7 @@ class ProductUploadActivity : ComponentActivity() {
         }
 
         // Create request URL
-        val url = "${AppConfig.BASE_URL}/api/products"
+        val url = "${Utility.apiUrl}/api/products"
 
         // Create the request
         val request = object : JsonObjectRequest(
