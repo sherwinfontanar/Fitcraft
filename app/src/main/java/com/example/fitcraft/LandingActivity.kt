@@ -59,6 +59,15 @@ class LandingActivity : Activity() {
             startActivity(intent)
         }
 
+        val cart = findViewById<LinearLayout>(R.id.cartbutton)
+        cart.setOnClickListener {
+            Log.e("FitCraft Cart", "Cart is Clicked")
+
+
+            val intent = Intent(this, Cart::class.java)
+            startActivity(intent)
+        }
+
         val homebutton = findViewById<ImageView>(R.id.home)
         homebutton.setOnClickListener {
             Log.e("FitCraft Home", "Home is Clicked")
