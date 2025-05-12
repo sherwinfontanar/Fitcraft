@@ -50,7 +50,16 @@ class LandingActivity : Activity() {
             startActivity(intent)
         }
 
-        val homebutton = findViewById<ImageView>(R.id.homebutton)
+        val measurement = findViewById<LinearLayout>(R.id.measurement)
+        measurement.setOnClickListener {
+            Log.e("FitCraft Home", "Measuremnt is Clicked")
+
+
+            val intent = Intent(this, MeasurementActivity::class.java)
+            startActivity(intent)
+        }
+
+        val homebutton = findViewById<ImageView>(R.id.home)
         homebutton.setOnClickListener {
             Log.e("FitCraft Home", "Home is Clicked")
 

@@ -112,6 +112,7 @@ class UserProfileActivity : Activity() {
             }
         }
 
+
         val btnChangePhoto: ImageButton = findViewById(R.id.btnChangePhoto)
         btnChangePhoto.setOnClickListener {
             val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -133,9 +134,9 @@ class UserProfileActivity : Activity() {
             startActivity(intent)
         }
 
-        val purchase = findViewById<TextView>(R.id.homebutton)
-        purchase.setOnClickListener {
-            val intent = Intent(this, PurchasesActivity::class.java)
+        val backButton = findViewById<ImageButton>(R.id.btnBack)
+        backButton.setOnClickListener {
+            val intent = Intent(this, LandingActivity::class.java)
             startActivity(intent)
         }
 
@@ -162,7 +163,6 @@ class UserProfileActivity : Activity() {
             building.setText(intent.getStringExtra("buildingNumber") ?: "")
             Log.d("UserProfileActivity", "Loaded address data from intent extras")
 
-
             if (isEditing) {
                 Toast.makeText(this, "Address data loaded from map", Toast.LENGTH_SHORT).show()
             }
@@ -181,6 +181,7 @@ class UserProfileActivity : Activity() {
                 street.setText(prefs.getString("user_address_street", "") ?: "")
                 building.setText(prefs.getString("user_address_buildingNumber", "") ?: "")
                 Log.d("UserProfileActivity", "Loaded address data from SharedPreferences")
+
 
                 if (isEditing) {
                     Toast.makeText(this, "Address data loaded from saved location", Toast.LENGTH_SHORT).show()
@@ -342,13 +343,13 @@ class UserProfileActivity : Activity() {
 
     private fun loadProfile() {
         val url = "${Utility.apiUrl}/api/profile"
-        Log.d("ProfileActivity", "Loading profile from: $url")
-        Log.d("ProfileActivity", "Token is ${if (Utility.token.isNullOrEmpty()) "NULL or EMPTY" else "PRESENT"}")
+        Log.d("UserProfileActivity", "Loading profile from: $url")
+        Log.d("UserProfileActivity", "Token is ${if (Utility.token.isNullOrEmpty()) "NULL or EMPTY" else "PRESENT"}")
 
         val request = object : JsonObjectRequest(
             Method.GET, url, null,
             { response ->
-                Log.d("ProfileActivity", "Profile loaded: $response")
+                Log.d("UserProfileActivity", "Profile loaded: $response")
                 firstName.setText(response.optString("firstName", ""))
                 middleName.setText(response.optString("middleName", ""))
                 lastName.setText(response.optString("lastName", ""))
@@ -412,12 +413,12 @@ class UserProfileActivity : Activity() {
             put("phoneNumber", phoneNumber.text.toString())
 
             // Add address information
-            put("province", province.text.toString())
-            put("city", city.text.toString())
-            put("barangay", barangay.text.toString())
-            put("sitio", sitio.text.toString())
-            put("street", street.text.toString())
-            put("buildingNumber", building.text.toString())
+            //put("province", province.text.toString())
+            //put("city", city.text.toString())
+            //put("barangay", barangay.text.toString())
+            //put("sitio", sitio.text.toString())
+            //put("street", street.text.toString())
+            //put("buildingNumber", building.text.toString())
 
             selectedImageBase64?.let {
                 put("profilePicture", it)
@@ -448,7 +449,7 @@ class UserProfileActivity : Activity() {
                     profileExists = true
                     saveProfile()
                 } else {
-                    Toast.makeText(this, "Error saving profile: $errorMessage", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Error saving profiledddss: $errorMessage", Toast.LENGTH_LONG).show()
                 }
             }
         ) {

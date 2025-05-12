@@ -1,6 +1,7 @@
 package com.example.fitcraft
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -30,7 +31,7 @@ class MeasurementActivity : Activity() {
     private lateinit var skinColor: EditText
 
     private lateinit var saveButton: Button
-    private lateinit var editButton: TextView
+    private lateinit var editButton: ImageButton
 
     private var isEditing = false
     private var measurementExists = false
@@ -63,6 +64,12 @@ class MeasurementActivity : Activity() {
             if (isEditing) {
                 saveMeasurements()
             }
+        }
+
+        val backButton = findViewById<ImageButton>(R.id.btnBack)
+        backButton.setOnClickListener {
+            val intent = Intent(this, LandingActivity::class.java)
+            startActivity(intent)
         }
     }
 

@@ -37,7 +37,7 @@ class RegisterActivity : Activity() {
         val btnShowCPassword = findViewById<ImageView>(R.id.btnShowCPassword)
 
         // Set up the spinner
-        val roles = arrayOf("Customer", "Tailor")
+        val roles = arrayOf("user", "tailor")
         val adapter = object : ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, roles) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                 val view = super.getView(position, convertView, parent)
