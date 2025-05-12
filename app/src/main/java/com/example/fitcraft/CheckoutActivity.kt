@@ -13,10 +13,12 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.example.fitcraft.utils.Utility
 import com.stripe.android.paymentsheet.PaymentSheet
 import com.stripe.android.paymentsheet.PaymentSheetResult
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
+import com.stripe.android.PaymentConfiguration
 
 class CheckoutActivity : ComponentActivity() {
 
@@ -41,6 +43,10 @@ class CheckoutActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_checkout)
 
+        PaymentConfiguration.init(
+            applicationContext,
+            "pk_test_51RLNm6QRbCi2Jf7PeVsjY6Bq4XQAx0B9lF0dDgtjtA0N8zVdm6YUfnJRlUs1Sbe9HQLLOSG0XyEpYh5NanHNAGgD007NDD8tYP" // Replace with your actual Stripe publishable key
+        )
         // Get product details from intent
         getProductDetailsFromIntent()
 
@@ -125,12 +131,12 @@ class CheckoutActivity : ComponentActivity() {
     }
 
     private fun fetchPaymentIntent() {
-        val url = "http://10.0.2.2:5000/api/create-payment-intent"
+        val url = "${Utility.apiUrl}/api/create-payment-intent"
         val queue = Volley.newRequestQueue(this)
 
         // Get the token
         val sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
-        val token = sharedPreferences.getString("token", "")
+        val token = Utility.token
 
         // Create JSON body with order amount and product details
         val jsonBody = JSONObject().apply {
@@ -174,12 +180,12 @@ class CheckoutActivity : ComponentActivity() {
     }
 
     private fun saveOrderToDatabase(paymentCompleted: Boolean) {
-        val url = "http://10.0.2.2:5000/api/orders"
+        val url = "${Utility.apiUrl}/api/orders"
         val queue = Volley.newRequestQueue(this)
 
         // Get the token
         val sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
-        val token = sharedPreferences.getString("token", "")
+        val token = Utility.token
 
         // Debug log
         Log.d("CheckoutActivity", "Using token: ${token?.take(10)}... (length: ${token?.length})")

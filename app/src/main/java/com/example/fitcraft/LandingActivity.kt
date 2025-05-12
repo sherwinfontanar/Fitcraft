@@ -64,7 +64,7 @@ class LandingActivity : Activity() {
             Log.e("FitCraft Home", "Home is Clicked")
 
 
-            val intent = Intent(this, LandingActivity::class.java)
+            val intent = Intent(this, CheckoutActivity::class.java)
             startActivity(intent)
         }
 

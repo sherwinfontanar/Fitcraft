@@ -14,61 +14,44 @@ import com.example.fitcraft.utils.Utility
 import org.json.JSONObject
 
 class ForgotPasswordActivity : Activity() {
-    private val TAG = "ForgotPasswordActivity"
+    private lateinit var emailEditText: EditText
+    private lateinit var sendButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgot_password)
 
-        val email = findViewById<EditText>(R.id.etEmail)
-        val resetButton = findViewById<Button>(R.id.btnResetPassword)
-        val btnBack = findViewById<ImageButton>(R.id.btnBack)
+        emailEditText = findViewById(R.id.etEmail)
+        sendButton = findViewById(R.id.btnResetPassword)
 
-        btnBack.setOnClickListener {
-            finish()
-        }
-
-        resetButton.setOnClickListener {
-            if (email.text.toString().isEmpty()) {
+        sendButton.setOnClickListener {
+            val email = emailEditText.text.toString().trim()
+            if (email.isEmpty()) {
                 Toast.makeText(this, "Please enter your email", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
-            resetPassword(email.text.toString())
+            sendResetLink(email)
         }
     }
 
-    private fun resetPassword(email: String) {
+    private fun sendResetLink(email: String) {
+        val queue = Volley.newRequestQueue(this)
         val url = "${Utility.apiUrl}/api/forgot-password"
 
-        val requestBody = JSONObject().apply {
+        val jsonBody = JSONObject().apply {
             put("email", email)
         }
 
-        val jsonObjectRequest = JsonObjectRequest(
-            Request.Method.POST, url, requestBody,
+        val request = JsonObjectRequest(
+            Request.Method.POST, url, jsonBody,
             { response ->
-                Log.d(TAG, "Reset password request successful: $response")
-                Toast.makeText(this, "Reset password link sent to your email", Toast.LENGTH_LONG).show()
-                finish()
+                Toast.makeText(this, "Reset link sent to your email", Toast.LENGTH_LONG).show()
             },
             { error ->
-                Log.e(TAG, "Reset password error: ${error.message}")
-                val errorMessage = when {
-                    error.networkResponse != null && error.networkResponse.data != null -> {
-                        try {
-                            val errorJson = JSONObject(String(error.networkResponse.data))
-                            errorJson.optString("message", "Failed to send reset link")
-                        } catch (e: Exception) {
-                            "Failed to send reset link"
-                        }
-                    }
-                    else -> "Network error. Please try again."
-                }
-                Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Error: ${error.message}", Toast.LENGTH_SHORT).show()
             }
         )
 
-        Volley.newRequestQueue(this).add(jsonObjectRequest)
+        queue.add(request)
     }
-} 
+}

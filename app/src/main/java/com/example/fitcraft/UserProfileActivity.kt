@@ -420,9 +420,7 @@ class UserProfileActivity : Activity() {
             //put("street", street.text.toString())
             //put("buildingNumber", building.text.toString())
 
-            selectedImageBase64?.let {
-                put("profilePicture", it)
-            }
+
         }
 
         Log.d("ProfileActivity", "Saving profile using method: ${if (method == Request.Method.PUT) "PUT" else "POST"}")

@@ -91,7 +91,7 @@
 
                 <data
                     android:host="reset-password"
-                    android:scheme="fitcraft" />
+                    android:scheme="myapp" />
             </intent-filter>
         </activity>
 
