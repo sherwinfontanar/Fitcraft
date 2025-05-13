@@ -7,6 +7,7 @@
     android:background="@color/four"
     tools:context=".Cart">
 
+    <!-- Toolbar -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -19,7 +20,7 @@
             android:id="@+id/btnBack"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:background="@drawable/back"
             android:contentDescription="Back"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -53,21 +54,23 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
+    <!-- ScrollView for Cart Items -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
         android:overScrollMode="never"
-        app:layout_constraintBottom_toTopOf="@id/voucherContainer"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toTopOf="@id/voucherContainer">
 
+        <!-- Cart Items Container -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- Example Cart Item (copy as needed for multiple items) -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
@@ -77,7 +80,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="140dp"
                     android:background="@color/two"
                     android:padding="12dp">
 
@@ -182,38 +185,40 @@
                             android:id="@+id/btnMinus1"
                             android:layout_width="28dp"
                             android:layout_height="28dp"
-                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:background="@color/white"
                             android:contentDescription="Decrease"
                             android:padding="8dp"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/minus"
-                            app:tint="@color/white" />
+                            android:src="@drawable/minus" />
+
 
                         <TextView
                             android:id="@+id/tvQuantity1"
                             android:layout_width="28dp"
                             android:layout_height="match_parent"
                             android:gravity="center"
+                            android:background="@color/white"
                             android:text="1"
-                            android:textColor="@color/white"
+                            android:textColor="@color/one"
                             android:textSize="16sp" />
 
                         <ImageButton
                             android:id="@+id/btnPlus1"
                             android:layout_width="28dp"
                             android:layout_height="28dp"
-                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:background="@color/white"
                             android:contentDescription="Increase"
                             android:padding="8dp"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/pluss"
-                            app:tint="@color/white" />
+                            android:src="@drawable/pluss"/>
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
+    <!-- Voucher Section -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/voucherContainer"
         android:layout_width="match_parent"
@@ -221,7 +226,9 @@
         android:layout_margin="8dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="2dp"
-        app:layout_constraintBottom_toTopOf="@id/bottomBar">
+        app:layout_constraintBottom_toTopOf="@id/bottomBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -234,7 +241,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Vouchers"
-                android:fontFamily="@font/poppins"
+                android:fontFamily="@font/poppins_regular"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -249,79 +256,85 @@
                 android:fontFamily="@font/poppins_regular"
                 android:textColor="@color/three"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/chevron"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@id/tvVoucherLabel"
+                app:layout_constraintBottom_toBottomOf="@id/tvVoucherLabel" />
 
             <ImageView
                 android:id="@+id/chevron"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:background="@drawable/chevron"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@id/tvVoucherLabel"
+                app:layout_constraintBottom_toBottomOf="@id/tvVoucherLabel" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.card.MaterialCardView
+    <!-- Bottom Bar Section -->
+    <LinearLayout
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:orientation="horizontal"
+        android:background="@color/two"
+        android:padding="16dp"
+        android:gravity="center_vertical|end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <CheckBox
+            android:id="@+id/checkboxAllItem"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/two"
-            android:padding="16dp">
+            android:buttonTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/imageItem1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imageItem1" />
 
-            <CheckBox
-                android:id="@+id/checkboxAll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:buttonTint="@color/white"
-                android:text="All"
-                android:fontFamily="@font/poppins_regular"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tvAllItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All Items"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/white"
+            android:textSize="14sp"/>
 
-            <TextView
-                android:id="@+id/tvTotal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="Total ₱0"
-                android:fontFamily="@font/poppins_bold"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/btnCheckout"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tvTotalLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Total:"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnCheckout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/one"
-                android:paddingHorizontal="24dp"
-                android:background="@drawable/edit_button_background"
-                android:text="Check Out"
-                android:fontFamily="@font/poppins_bold"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                app:cornerRadius="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+        <TextView
+            android:id="@+id/tvTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="₱890"
+            android:fontFamily="@font/poppins_bold"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/btnCheckout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Checkout"
+            android:backgroundTint="@color/three"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins_semibold" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -378,6 +378,7 @@
                             android:fontFamily="@font/poppins_regular"
                             android:textSize="14sp" />
                     </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -388,6 +389,28 @@
                     android:orientation="horizontal"
                     android:padding="12dp">
 
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ORD - 2025"
+                            android:textColor="@color/one"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/poppins_bold"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Finalizing Design"
+                            android:textColor="@color/two"
+                            android:fontFamily="@font/poppins_light"
+                            android:textSize="14sp" />
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -398,18 +421,17 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_light"
                             android:text="Est. Delivery"
                             android:textColor="@color/two"
-                            android:fontFamily="@font/poppins_light"
                             android:textSize="12sp" />
-
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
                             android:text="Dec 20, 2024"
                             android:textColor="@color/three"
-                            android:fontFamily="@font/poppins_regular"
                             android:textSize="14sp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -417,12 +439,14 @@
         </LinearLayout>
     </ScrollView>
     <LinearLayout
+        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@drawable/rounded_dashboard"
         android:orientation="horizontal"
         android:elevation="8dp"
-        android:gravity="center">
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:id="@+id/homebutton"
@@ -482,46 +506,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
 
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_bold"
-                    android:text="ORD - 2025"
-                    android:textColor="@color/one"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_light"
-                    android:text="Finalizing Design"
-                    android:textColor="@color/two"
-                    android:textSize="14sp" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:text="Home"
-                        android:textColor="@color/two"
-                        android:textSize="12sp" />
-                </LinearLayout>
-            </LinearLayout>
 
             <ImageView
                 android:layout_width="24dp"

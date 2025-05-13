@@ -128,21 +128,11 @@ class UserProfileActivity : Activity() {
             startActivityForResult(intent, MAP_ACTIVITY_REQUEST_CODE)
         }
 
-        val cartB = findViewById<TextView>(R.id.cartbtn1)
-        cartB.setOnClickListener {
-            val intent = Intent(this, Cart::class.java)
-            startActivity(intent)
-        }
 
         val backButton = findViewById<ImageButton>(R.id.btnBack)
         backButton.setOnClickListener {
             val intent = Intent(this, LandingActivity::class.java)
             startActivity(intent)
-        }
-
-        findViewById<ImageView>(R.id.logout).setOnClickListener {
-            Utility.clearToken()
-            navigateToLogin()
         }
     }
 

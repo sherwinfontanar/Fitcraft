@@ -364,7 +364,7 @@
                         <ImageView
                             android:layout_width="32dp"
                             android:layout_height="32dp"
-                            android:src="@drawable/rate1"
+                            android:src="@drawable/rate"
                             app:tint="@color/white" />
 
                         <TextView

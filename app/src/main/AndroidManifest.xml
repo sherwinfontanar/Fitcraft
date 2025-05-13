@@ -15,12 +15,12 @@
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/fitcraftlogo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/fitcraftlogo"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FitCraft"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
@@ -47,6 +47,9 @@
         <activity
             android:name=".TailorProfileActivity"
             android:exported="false" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false"/>
         <activity
             android:name=".MeasurementActivity"
             android:exported="false" />

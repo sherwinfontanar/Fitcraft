@@ -34,19 +34,19 @@ class LandingActivity : Activity() {
 
         val profile = findViewById<ImageView>(R.id.ivProfilePicture)
         profile.setOnClickListener {
-            Log.e("FitCraft Home", "Settings is Clicked")
+            Log.e("FitCraft Home", "Profile is Clicked")
 
 
-            val intent = Intent(this, UserProfileActivity::class.java)
+            val intent = Intent(this, Profile::class.java)
             startActivity(intent)
         }
 
         val profilename = findViewById<TextView>(R.id.profilename)
         profilename.setOnClickListener {
-            Log.e("FitCraft Home", "Settings is Clicked")
+            Log.e("FitCraft Home", "Profile is Clicked")
 
 
-            val intent = Intent(this, UserProfileActivity::class.java)
+            val intent = Intent(this, Profile::class.java)
             startActivity(intent)
         }
 
@@ -68,7 +68,7 @@ class LandingActivity : Activity() {
             startActivity(intent)
         }
 
-        val homebutton = findViewById<ImageView>(R.id.home)
+        val homebutton = findViewById<LinearLayout>(R.id.homebutton)
         homebutton.setOnClickListener {
             Log.e("FitCraft Home", "Home is Clicked")
 
@@ -77,7 +77,7 @@ class LandingActivity : Activity() {
             startActivity(intent)
         }
 
-        val logoutButton = findViewById<ImageView>(R.id.logout)
+        val logoutButton = findViewById<LinearLayout>(R.id.logoutbutton)
         logoutButton?.setOnClickListener { v: View? -> showLogoutDialog() }
     }
 
