@@ -46,7 +46,7 @@ class UserProfileActivity : Activity() {
     private lateinit var province: EditText
     private lateinit var city: EditText
     private lateinit var barangay: EditText
-    private lateinit var sitio: EditText
+    private lateinit var zipcode : EditText
     private lateinit var street: EditText
     private lateinit var building: EditText
 
@@ -85,7 +85,7 @@ class UserProfileActivity : Activity() {
         province = findViewById(R.id.province)
         city = findViewById(R.id.city)
         barangay = findViewById(R.id.barangay)
-        sitio = findViewById(R.id.sitio)
+        zipcode = findViewById(R.id.zipcode)
         street = findViewById(R.id.street)
         building = findViewById(R.id.building)
 
@@ -148,7 +148,7 @@ class UserProfileActivity : Activity() {
             province.setText(intent.getStringExtra("province") ?: "")
             city.setText(intent.getStringExtra("city") ?: "")
             barangay.setText(intent.getStringExtra("barangay") ?: "")
-            sitio.setText(intent.getStringExtra("sitio") ?: "")
+            zipcode.setText(intent.getStringExtra("zipcode") ?: "")
             street.setText(intent.getStringExtra("street") ?: "")
             building.setText(intent.getStringExtra("buildingNumber") ?: "")
             Log.d("UserProfileActivity", "Loaded address data from intent extras")
@@ -167,7 +167,7 @@ class UserProfileActivity : Activity() {
                 province.setText(prefs.getString("user_address_province", "") ?: "")
                 city.setText(prefs.getString("user_address_city", "") ?: "")
                 barangay.setText(prefs.getString("user_address_barangay", "") ?: "")
-                sitio.setText(prefs.getString("user_address_sitio", "") ?: "")
+                zipcode.setText(prefs.getString("user_address_zipcode", "") ?: "")
                 street.setText(prefs.getString("user_address_street", "") ?: "")
                 building.setText(prefs.getString("user_address_buildingNumber", "") ?: "")
                 Log.d("UserProfileActivity", "Loaded address data from SharedPreferences")
@@ -222,7 +222,7 @@ class UserProfileActivity : Activity() {
                     province.setText(addressComponents["province"] ?: "")
                     city.setText(addressComponents["city"] ?: "")
                     barangay.setText(addressComponents["barangay"] ?: "")
-                    sitio.setText(addressComponents["sitio"] ?: "")
+                    zipcode.setText(addressComponents["zipcode"] ?: "")
                     street.setText(addressComponents["street"] ?: "")
                     building.setText(addressComponents["buildingNumber"] ?: "")
 
@@ -272,7 +272,7 @@ class UserProfileActivity : Activity() {
         province.isEnabled = enabled
         city.isEnabled = enabled
         barangay.isEnabled = enabled
-        sitio.isEnabled = enabled
+        zipcode.isEnabled = enabled
         street.isEnabled = enabled
         building.isEnabled = enabled
 
@@ -313,7 +313,7 @@ class UserProfileActivity : Activity() {
                     province.setText(data.getStringExtra("province") ?: "")
                     city.setText(data.getStringExtra("city") ?: "")
                     barangay.setText(data.getStringExtra("barangay") ?: "")
-                    sitio.setText(data.getStringExtra("sitio") ?: "")
+                    zipcode.setText(data.getStringExtra("zipcode") ?: "")
                     street.setText(data.getStringExtra("street") ?: "")
                     building.setText(data.getStringExtra("buildingNumber") ?: "")
 
@@ -350,7 +350,7 @@ class UserProfileActivity : Activity() {
                 province.setText(response.optString("province", ""))
                 city.setText(response.optString("city", ""))
                 barangay.setText(response.optString("barangay", ""))
-                sitio.setText(response.optString("sitio", ""))
+                zipcode.setText(response.optString("zipcode", ""))
                 street.setText(response.optString("street", ""))
                 building.setText(response.optString("buildingNumber", ""))
 
@@ -402,15 +402,16 @@ class UserProfileActivity : Activity() {
             put("email", email.text.toString())
             put("phoneNumber", phoneNumber.text.toString())
 
-            // Add address information
-            //put("province", province.text.toString())
-            //put("city", city.text.toString())
-            //put("barangay", barangay.text.toString())
-            //put("sitio", sitio.text.toString())
-            //put("street", street.text.toString())
-            //put("buildingNumber", building.text.toString())
-
-
+            // Address as a nested object
+            val addressObject = JSONObject().apply {
+                put("province", province.text.toString())
+                put("city", city.text.toString())
+                put("barangay", barangay.text.toString())
+                put("zipcode", zipcode.text.toString())
+                put("street", street.text.toString())
+                put("buildingNumber", building.text.toString())
+            }
+            put("address", addressObject)
         }
 
         Log.d("ProfileActivity", "Saving profile using method: ${if (method == Request.Method.PUT) "PUT" else "POST"}")

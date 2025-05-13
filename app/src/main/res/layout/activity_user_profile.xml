@@ -189,11 +189,11 @@
                     android:padding="10dp" />
 
                 <EditText
-                    android:id="@+id/sitio"
+                    android:id="@+id/zipcode"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="40dp"
-                    android:hint="Sitio"
+                    android:hint="Zipcode"
                     android:background="@drawable/edit_text_background"
                     android:fontFamily="@font/poppins_regular"
                     android:textSize="14dp"
