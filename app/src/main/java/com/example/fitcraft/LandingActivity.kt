@@ -3,104 +3,130 @@ package com.example.fitcraft
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
-import android.media.Image
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import android.widget.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.Volley
+import com.example.fitcraft.utils.Utility
 
 class LandingActivity : Activity() {
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var productsAdapter: ProductsAdapter
+    private val productsList = mutableListOf<TailorDashboardActivity.Product>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_landing)
 
-        val btnsettings = findViewById<ImageView>(R.id.settings)
-        btnsettings.setOnClickListener {
-            Log.e("FitCraft Home", "Settings is Clicked")
+        recyclerView = findViewById(R.id.recyclerViewProducts)
+        setupRecyclerView()
+        setupNavigation()
+    }
 
+    override fun onResume() {
+        super.onResume()
+        fetchProducts()
+    }
 
-            val intent = Intent(this, SettingsActivity::class.java)
-            startActivity(intent)
+    private fun setupRecyclerView() {
+        productsAdapter = ProductsAdapter(this, productsList)
+        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.adapter = productsAdapter
+    }
+
+    private fun fetchProducts() {
+        val url = "${Utility.apiUrl}/api/products"
+        Log.d("LandingActivity", "Fetching products from: $url")
+
+        val request = object : JsonArrayRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                productsList.clear()
+                for (i in 0 until response.length()) {
+                    val productJson = response.getJSONObject(i)
+                    val product = TailorDashboardActivity.Product(
+                        id = productJson.getString("_id"),
+                        name = productJson.getString("productName"),
+                        price = productJson.getDouble("productPrice"),
+                        color = productJson.getString("productColor"),
+                        description = productJson.getString("productDescription"),
+                        imageUrl = productJson.getString("productImage")
+                    )
+                    productsList.add(product)
+                }
+                productsAdapter.notifyDataSetChanged()
+            },
+            { error ->
+                Log.e("LandingActivity", "Error: ${error.message}")
+                Toast.makeText(this, "Failed to load products", Toast.LENGTH_SHORT).show()
+            }
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Bearer ${Utility.token ?: ""}"
+                return headers
+            }
         }
 
-        val profile = findViewById<ImageView>(R.id.ivProfilePicture)
-        profile.setOnClickListener {
-            Log.e("FitCraft Home", "Profile is Clicked")
+        Volley.newRequestQueue(this).add(request)
+    }
 
-
-            val intent = Intent(this, Profile::class.java)
-            startActivity(intent)
+    private fun setupNavigation() {
+        findViewById<ImageView>(R.id.settings).setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
         }
 
-        val profilename = findViewById<TextView>(R.id.profilename)
-        profilename.setOnClickListener {
-            Log.e("FitCraft Home", "Profile is Clicked")
-
-
-            val intent = Intent(this, Profile::class.java)
-            startActivity(intent)
+        findViewById<ImageView>(R.id.ivProfilePicture).setOnClickListener {
+            startActivity(Intent(this, Profile::class.java))
         }
 
-        val measurement = findViewById<LinearLayout>(R.id.measurement)
-        measurement.setOnClickListener {
-            Log.e("FitCraft Home", "Measuremnt is Clicked")
-
-
-            val intent = Intent(this, MeasurementActivity::class.java)
-            startActivity(intent)
+        findViewById<TextView>(R.id.profilename).setOnClickListener {
+            startActivity(Intent(this, Profile::class.java))
         }
 
-        val cart = findViewById<LinearLayout>(R.id.cartbutton)
-        cart.setOnClickListener {
-            Log.e("FitCraft Cart", "Cart is Clicked")
-
-
-            val intent = Intent(this, Cart::class.java)
-            startActivity(intent)
+        findViewById<LinearLayout>(R.id.measurement).setOnClickListener {
+            startActivity(Intent(this, MeasurementActivity::class.java))
         }
 
-        val homebutton = findViewById<LinearLayout>(R.id.homebutton)
-        homebutton.setOnClickListener {
-            Log.e("FitCraft Home", "Home is Clicked")
-
-
-            val intent = Intent(this, CheckoutActivity::class.java)
-            startActivity(intent)
+        findViewById<LinearLayout>(R.id.cartbutton).setOnClickListener {
+            startActivity(Intent(this, Cart::class.java))
         }
 
-        val logoutButton = findViewById<LinearLayout>(R.id.logoutbutton)
-        logoutButton?.setOnClickListener { v: View? -> showLogoutDialog() }
+        findViewById<LinearLayout>(R.id.homebutton).setOnClickListener {
+            startActivity(Intent(this, CheckoutActivity::class.java))
+        }
+
+        findViewById<LinearLayout>(R.id.logoutbutton).setOnClickListener {
+            showLogoutDialog()
+        }
     }
 
     private fun showLogoutDialog() {
-        val dialogView: View = LayoutInflater.from(this).inflate(R.layout.activity_logout_dialog, null)
-        val dialogBuilder = AlertDialog.Builder(this)
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.activity_logout_dialog, null)
+        val dialog = AlertDialog.Builder(this)
             .setView(dialogView)
             .setCancelable(false)
-        val dialog = dialogBuilder.create()
-        if (dialog.window != null) {
-            dialog.window!!.setBackgroundDrawableResource(android.R.color.transparent)
-        }
+            .create()
+
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.show()
-        val btnCancel = dialogView.findViewById<Button>(R.id.btn_cancel)
-        val btnConfirmLogout = dialogView.findViewById<Button>(R.id.btn_confirm_logout)
-        btnCancel.setOnClickListener { v: View? -> dialog.dismiss() }
-        btnConfirmLogout.setOnClickListener { v: View? ->
+
+        dialogView.findViewById<Button>(R.id.btn_cancel).setOnClickListener {
             dialog.dismiss()
-            val intent =
-                Intent(this, LoginActivity::class.java)
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            startActivity(intent)
         }
 
+        dialogView.findViewById<Button>(R.id.btn_confirm_logout).setOnClickListener {
+            dialog.dismiss()
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
     }
 }
