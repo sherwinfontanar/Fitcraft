@@ -24,7 +24,7 @@ class MeasurementActivity : Activity() {
     private lateinit var waist: EditText
     private lateinit var hips: EditText
     private lateinit var shoulderWidth: EditText
-    private lateinit var sleeveLength: EditText
+    private lateinit var highHipValue: EditText
     private lateinit var neckToWaist: EditText
     private lateinit var waistToHern: EditText
     private lateinit var bodyType: EditText
@@ -44,7 +44,7 @@ class MeasurementActivity : Activity() {
         waist = findViewById(R.id.waistValue)
         hips = findViewById(R.id.hipsValue)
         shoulderWidth = findViewById(R.id.shoulderValue)
-        sleeveLength = findViewById(R.id.sleeveValue)
+        highHipValue = findViewById(R.id.highHipValue)
         neckToWaist = findViewById(R.id.neckToWaistValue)
         waistToHern = findViewById(R.id.waistToHemValue)
         bodyType = findViewById(R.id.bodyTypeValue)
@@ -71,15 +71,73 @@ class MeasurementActivity : Activity() {
             val intent = Intent(this, LandingActivity::class.java)
             startActivity(intent)
         }
+
+        val watcher = object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: android.text.Editable?) {
+                updateBodyTypeInRealTime()
+            }
+        }
+
+        bust.addTextChangedListener(watcher)
+        waist.addTextChangedListener(watcher)
+        hips.addTextChangedListener(watcher)
+        highHipValue.addTextChangedListener(watcher) // ← assuming this is high hip
+
     }
 
+    private fun updateBodyTypeInRealTime() {
+        val bustVal = bust.text.toString().toFloatOrNull() ?: return
+        val waistVal = waist.text.toString().toFloatOrNull() ?: return
+        val hipsVal = hips.text.toString().toFloatOrNull() ?: return
+        val highHipVal = highHipValue.text.toString().toFloatOrNull() ?: return // replace if needed
+
+        val calculatedBodyType = determineBodyType(bustVal, waistVal, hipsVal, highHipVal)
+        bodyType.setText(calculatedBodyType)
+    }
+
+
     private fun setEditing(enabled: Boolean) {
-        listOf(bust, waist, hips, shoulderWidth, sleeveLength, neckToWaist, waistToHern, bodyType, skinColor).forEach {
+        listOf(bust, waist, hips, shoulderWidth, highHipValue, neckToWaist, waistToHern, bodyType, skinColor).forEach {
             it.isEnabled = enabled
         }
         saveButton.isEnabled = enabled
         isEditing = enabled
     }
+
+    private fun determineBodyType(bust: Float, waist: Float, hips: Float, highHip: Float): String {
+        val bustMinusHips = bust - hips
+        val hipsMinusBust = hips - bust
+        val bustMinusWaist = bust - waist
+        val hipsMinusWaist = hips - waist
+        val highHipWaistRatio = if (waist != 0f) highHip / waist else 0f
+
+        return when {
+            (bustMinusHips <= 1 && hipsMinusBust < 3.6 && bustMinusWaist >= 9) ||
+                    (hipsMinusWaist >= 10) -> "Hourglass"
+
+            (hipsMinusBust >= 3.6 && hipsMinusBust < 10 &&
+                    hipsMinusWaist >= 9 && highHipWaistRatio < 1.193) -> "Bottom Hourglass"
+
+            (bustMinusHips > 1 && bustMinusHips < 10 && bustMinusWaist >= 9) -> "Top Hourglass"
+
+            (hipsMinusBust > 2 && hipsMinusWaist >= 7 && highHipWaistRatio >= 1.193) -> "Spoon"
+
+            (hipsMinusBust >= 3.6 && hipsMinusWaist < 9) -> "Triangle"
+
+            (bustMinusHips >= 3.6 && bustMinusWaist < 9) -> "Inverted Triangle"
+
+            (hipsMinusBust < 3.6 && bustMinusHips < 3.6 &&
+                    bustMinusWaist < 9 && hipsMinusWaist < 10) -> "Rectangle"
+
+            else -> "Undefined"
+        }
+    }
+
+
 
     private fun loadMeasurements() {
         val url = "${Utility.apiUrl}/api/measurement"
@@ -90,7 +148,7 @@ class MeasurementActivity : Activity() {
                 waist.setText(response.optString("waist", ""))
                 hips.setText(response.optString("hips", ""))
                 shoulderWidth.setText(response.optString("shoulderWidth", ""))
-                sleeveLength.setText(response.optString("sleeveLength", ""))
+                highHipValue.setText(response.optString("highHipValue", ""))
                 neckToWaist.setText(response.optString("neckToWaist", ""))
                 waistToHern.setText(response.optString("waistToHern", ""))
                 bodyType.setText(response.optString("bodyType", ""))
@@ -125,10 +183,15 @@ class MeasurementActivity : Activity() {
             put("waist", waist.text.toString().toFloatOrNull())
             put("hips", hips.text.toString().toFloatOrNull())
             put("shoulderWidth", shoulderWidth.text.toString().toFloatOrNull())
-            put("sleeveLength", sleeveLength.text.toString().toFloatOrNull())
+            put("highHipValue", highHipValue.text.toString().toFloatOrNull())
             put("neckToWaist", neckToWaist.text.toString().toFloatOrNull())
             put("waistToHern", waistToHern.text.toString().toFloatOrNull())
-            put("bodyType", bodyType.text.toString())
+            val bustVal = bust.text.toString().toFloatOrNull() ?: 0f
+            val waistVal = waist.text.toString().toFloatOrNull() ?: 0f
+            val hipsVal = hips.text.toString().toFloatOrNull() ?: 0f
+            val highHipVal = highHipValue.text.toString().toFloatOrNull() ?: 0f // ← Replace with actual high hip field if different
+            val calculatedBodyType = determineBodyType(bustVal, waistVal, hipsVal, highHipVal)
+            put("bodyType", calculatedBodyType)
             put("skinColor", skinColor.text.toString())
         }
 

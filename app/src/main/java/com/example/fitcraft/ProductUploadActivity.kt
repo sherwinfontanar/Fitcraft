@@ -34,6 +34,7 @@ class ProductUploadActivity : ComponentActivity() {
     private lateinit var productPriceEditText: EditText
     private lateinit var productColorEditText: EditText
     private lateinit var productDescriptionEditText: EditText
+    private lateinit var productBodyTypeEditText: EditText
     private lateinit var saveProductButton: Button
 
     // Variables for image handling
@@ -78,6 +79,7 @@ class ProductUploadActivity : ComponentActivity() {
         productPriceEditText = findViewById(R.id.productPriceEditText)
         productColorEditText = findViewById(R.id.productColorEditText)
         productDescriptionEditText = findViewById(R.id.productDescriptionEditText)
+        productBodyTypeEditText = findViewById(R.id.productBodyTypeEditText)
         saveProductButton = findViewById(R.id.saveProductButton)
     }
 
@@ -135,6 +137,10 @@ class ProductUploadActivity : ComponentActivity() {
             productColorEditText.error = "Product color is required"
             return false
         }
+        if (productBodyTypeEditText.text.toString().trim().isEmpty()) {
+            productBodyTypeEditText.error = "Product color is required"
+            return false
+        }
 
         // Check product description
         if (productDescriptionEditText.text.toString().trim().isEmpty()) {
@@ -156,6 +162,7 @@ class ProductUploadActivity : ComponentActivity() {
             put("productName", productNameEditText.text.toString().trim())
             put("productPrice", productPriceEditText.text.toString().trim().toDouble())
             put("productColor", productColorEditText.text.toString().trim())
+            put("bodyType", productBodyTypeEditText.text.toString().trim())
             put("productDescription", productDescriptionEditText.text.toString().trim())
         }
 

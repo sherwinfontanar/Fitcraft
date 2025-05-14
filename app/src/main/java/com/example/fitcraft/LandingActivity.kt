@@ -56,6 +56,7 @@ class LandingActivity : Activity() {
                         name = productJson.getString("productName"),
                         price = productJson.getDouble("productPrice"),
                         color = productJson.getString("productColor"),
+                        bodyType = productJson.getString("bodyType"),
                         description = productJson.getString("productDescription"),
                         imageUrl = productJson.getString("productImage")
                     )

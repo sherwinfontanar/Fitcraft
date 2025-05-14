@@ -83,6 +83,7 @@ class TailorDashboardActivity : Activity() {
                             name = productJson.getString("productName"),
                             price = productJson.getDouble("productPrice"),
                             color = productJson.getString("productColor"),
+                            bodyType = productJson.getString("bodyType"),
                             description = productJson.getString("productDescription"),
                             imageUrl = imageData
                         )
@@ -125,6 +126,7 @@ class TailorDashboardActivity : Activity() {
         val name: String,
         val price: Double,
         val color: String,
+        val bodyType: String,
         val description: String,
         val imageUrl: String
     )

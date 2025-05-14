@@ -33,6 +33,8 @@ class ProductsAdapter(
         val productPrice: TextView = view.findViewById(R.id.productPrice)
         val productColor: TextView = view.findViewById(R.id.productColor)
         val productDescription: TextView = view.findViewById(R.id.productDescription)
+        val productBodyType: TextView = view.findViewById(R.id.productBodyType)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -93,6 +95,7 @@ class ProductsAdapter(
         holder.productPrice.text = formatter.format(product.price)
 
         holder.productColor.text = "Color: ${product.color}"
+        holder.productBodyType.text = "BodyType: ${product.bodyType}"
         holder.productDescription.text = product.description
     }
 
