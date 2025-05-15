@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,7 +9,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="650dp"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_navigation"
         android:scrollbars="none"
         android:fillViewport="true">
 
@@ -42,15 +43,27 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/profilename"
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Juana Cruz"
-                        android:textColor="@color/one"
-                        android:textSize="18sp"
-                        android:fontFamily="@font/poppins_black"/>
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Hi, "
+                            android:fontFamily="@font/poppins_black"
+                            android:textSize="20sp"
+                            android:textColor="@color/two"
+                            android:layout_marginEnd="5dp"/>
+
+                        <TextView
+                            android:id="@+id/profilename"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Juana Cruz"
+                            android:textColor="@color/one"
+                            android:textSize="18sp"
+                            android:fontFamily="@font/poppins_black"/>
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/txt_body_shape"
@@ -123,21 +136,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Recommended for You"
+                android:text="Available Products"
                 android:gravity="center"
                 android:background="@drawable/rounded_top_card"
                 android:textColor="@color/one"
                 android:textSize="18sp"
                 android:layout_marginBottom="8dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Available Products"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewProducts"
@@ -281,6 +286,7 @@
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/rounded_dashboard"
         android:orientation="horizontal"
         android:elevation="8dp"
@@ -345,8 +351,6 @@
             android:gravity="center"
             android:orientation="vertical">
 
-
-
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
@@ -390,4 +394,4 @@
                 android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>
