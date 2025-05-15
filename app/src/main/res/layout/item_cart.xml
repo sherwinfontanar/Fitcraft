@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="140dp"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="10dp"
+    android:layout_marginTop="12dp"
+    app:cardElevation="2dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cartItemLayout"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:background="@color/two"
+        android:padding="12dp">
+
+        <CheckBox
+            android:id="@+id/checkboxItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/imageItem"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imageItem" />
+
+        <ImageView
+            android:id="@+id/imageItem"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/three"
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder_image"
+            app:layout_constraintStart_toEndOf="@id/checkboxItem"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvProductName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="Product Name"
+            android:fontFamily="@font/poppins_black"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imageItem"
+            app:layout_constraintTop_toTopOf="@id/imageItem" />
+
+        <TextView
+            android:id="@+id/tvVariant"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Color"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/four"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tvProductName"
+            app:layout_constraintTop_toBottomOf="@id/tvProductName" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="₱0"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/tvProductName"
+            app:layout_constraintTop_toBottomOf="@id/tvVariant" />
+
+        <LinearLayout
+            android:id="@+id/quantityControl"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/three"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@id/tvPrice"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvPrice">
+
+            <ImageButton
+                android:id="@+id/btnMinus"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:background="@color/white"
+                android:contentDescription="Decrease"
+                android:padding="8dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/minus" />
+
+            <TextView
+                android:id="@+id/tvQuantity"
+                android:layout_width="28dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:background="@color/white"
+                android:text="1"
+                android:textColor="@color/one"
+                android:textSize="16sp" />
+
+            <ImageButton
+                android:id="@+id/btnPlus"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:background="@color/white"
+                android:contentDescription="Increase"
+                android:padding="8dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/pluss"/>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

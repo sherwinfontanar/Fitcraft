@@ -23,7 +23,7 @@
             android:background="@drawable/back"
             android:contentDescription="Back"
             android:padding="8dp"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -36,11 +36,23 @@
             android:fontFamily="@font/poppins_bold"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvItemCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 items"
+            android:fontFamily="@font/poppins_light"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvCheckoutTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="-8dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -88,24 +100,24 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:text="Juana Cruz (+63) 927 212 8371"
+                        android:text="Delivery Address"
                         android:fontFamily="@font/poppins_bold"
                         android:textColor="@color/one"
                         android:textSize="14sp"
-                        android:textStyle="bold"
                         app:layout_constraintStart_toEndOf="@id/ivLocation"
-                        app:layout_constraintTop_toTopOf="@id/ivLocation" />
+                        app:layout_constraintTop_toTopOf="@id/ivLocation"
+                        app:layout_constraintEnd_toEndOf="parent" />
 
                     <TextView
-                        android:id="@+id/tvAddress"
+                        android:id="@+id/tvUserAddress"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="123 Poblacion Oriental Consolacion, Cebu, Visayas, 6001 Landmark: Beside Fooda Hypermarket"
+                        android:text="Loading address..."
                         android:fontFamily="@font/poppins_regular"
                         android:textColor="@color/two"
-                        android:textSize="10sp"
-                        app:layout_constraintEnd_toEndOf="@id/tvName"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@id/tvName"
                         app:layout_constraintTop_toBottomOf="@id/tvName" />
 
@@ -151,7 +163,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:text="Fontanar Tailoring Services"
+                            android:text="FitCraft Tailoring Services"
                             android:fontFamily="@font/poppins_bold"
                             android:textColor="@color/white"
                             android:textSize="14sp"
@@ -167,77 +179,13 @@
                         android:layout_height="1dp"
                         android:background="@color/three" />
 
-                    <!-- Product Item -->
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <!-- Container for checkout items -->
+                    <LinearLayout
+                        android:id="@+id/checkoutItemsContainer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingBottom="5dp"
-                        android:background="@color/three"
-                        android:padding="12dp">
-
-                        <ImageView
-                            android:id="@+id/ivProduct"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:background="@color/four"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/top"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/tvProductName"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginEnd="8dp"
-                            android:text="A-Line Skirt"
-                            android:fontFamily="@font/poppins_black"
-                            android:textColor="@color/one"
-                            android:textSize="14sp"
-                            app:layout_constraintEnd_toStartOf="@id/tvProductPrice"
-                            app:layout_constraintStart_toEndOf="@id/ivProduct"
-                            app:layout_constraintTop_toTopOf="@id/ivProduct" />
-
-                        <TextView
-                            android:id="@+id/tvVariant"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginBottom="4dp"
-                            android:text="Turquoise"
-                            android:fontFamily="@font/poppins_light"
-                            android:textColor="@color/two"
-                            android:textSize="12sp"
-                            app:layout_constraintEnd_toEndOf="@id/tvProductName"
-                            app:layout_constraintStart_toStartOf="@id/tvProductName"
-                            app:layout_constraintTop_toBottomOf="@id/tvProductName" />
-
-                        <TextView
-                            android:id="@+id/tvQuantity"
-                            android:layout_width="20dp"
-                            android:layout_height="19dp"
-                            android:fontFamily="@font/poppins_light"
-                            android:text="x1"
-                            android:textColor="@color/two"
-                            android:textSize="14sp"
-                            app:layout_constraintTop_toBottomOf="@id/tvVariant"
-                            app:layout_constraintBottom_toBottomOf="@id/ivProduct"
-                            app:layout_constraintStart_toStartOf="@id/tvVariant" />
-
-                        <TextView
-                            android:id="@+id/tvProductPrice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="₱890"
-                            android:fontFamily="@font/poppins_bold"
-                            android:textColor="@color/one"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/ivProduct" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:orientation="vertical"
+                        android:background="@color/three" />
 
                     <View
                         android:layout_width="match_parent"
@@ -269,6 +217,7 @@
                         android:textColor="@color/one"
                         android:textSize="14sp"
                         android:textStyle="bold"
+                        android:fontFamily="@font/poppins_bold"
                         android:layout_marginBottom="8dp"/>
 
                     <RadioGroup
@@ -441,9 +390,10 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/tvSubtotal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="₱890"
+                            android:text="₱0"
                             android:fontFamily="@font/poppins_regular"
                             android:textColor="@color/one"
                             android:textSize="14sp" />
@@ -465,6 +415,7 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/tvShippingCost"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="₱120"
@@ -489,6 +440,7 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/tvShippingDiscount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-₱120"
@@ -502,31 +454,6 @@
                         android:layout_height="1dp"
                         android:layout_marginBottom="8dp"
                         android:background="@color/three" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Total Payment"
-                            android:fontFamily="@font/poppins_bold"
-                            android:textColor="@color/one"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="₱890"
-                            android:fontFamily="@font/poppins_bold"
-                            android:textColor="@color/one"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -586,7 +513,7 @@
             android:id="@+id/tvTotalAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="₱890"
+            android:text="₱0"
             android:fontFamily="@font/poppins_bold"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -610,8 +537,8 @@
 
         <Button
             android:id="@+id/btnPlaceOrder"
-            android:layout_width="110dp"
-            android:layout_height="40dp"
+            android:layout_width="140dp"
+            android:layout_height="45dp"
             android:background="@drawable/edit_button_background"
             android:paddingHorizontal="8dp"
             android:text="Place Order"

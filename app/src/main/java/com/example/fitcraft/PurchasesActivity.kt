@@ -8,14 +8,19 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import com.android.volley.AuthFailureError
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
+import com.example.fitcraft.utils.Utility
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
 import org.json.JSONArray
 import org.json.JSONObject
 import java.net.URL
@@ -23,9 +28,11 @@ import kotlin.concurrent.thread
 
 class PurchasesActivity : Activity() {
 
+    private val TAG = "PurchasesActivity"
     private lateinit var noOrdersText: TextView
     private lateinit var purchasesContainer: LinearLayout
     private lateinit var titleText: TextView
+    private lateinit var loadingProgressBar: ProgressBar
 
     // Tab views
     private lateinit var tabToPay: TextView
@@ -60,6 +67,23 @@ class PurchasesActivity : Activity() {
         noOrdersText = findViewById(R.id.noOrdersText)
         purchasesContainer = findViewById(R.id.purchasesContainer)
         titleText = findViewById(R.id.titleText)
+
+        // Initialize loading indicator
+        loadingProgressBar = findViewById(R.id.loadingProgressBar)
+        if (loadingProgressBar == null) {
+            // Create a loading indicator programmatically if it's not in the layout
+            loadingProgressBar = ProgressBar(this)
+            val params = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            params.gravity = Gravity.CENTER
+            loadingProgressBar.layoutParams = params
+
+            // Get the parent view and add the progress bar
+            val rootView = findViewById<View>(android.R.id.content)
+            (rootView as ViewGroup).addView(loadingProgressBar)
+        }
 
         // Initialize tab views
         tabToPay = findViewById(R.id.tabToPay)
@@ -115,39 +139,72 @@ class PurchasesActivity : Activity() {
     }
 
     private fun fetchOrders(status: String = "pending") {
-        Log.d("PurchasesActivity", "Fetching orders with status: $status")
-        val url = "http://10.0.2.2:5000/api/orders"
+        Log.d(TAG, "Fetching orders with status: $status")
+
+        // Show loading indicator
+        loadingProgressBar.visibility = View.VISIBLE
+        noOrdersText.visibility = View.GONE
+
+        // Clear existing orders while loading
+        purchasesContainer.removeAllViews()
+
+        // Verify API URL is not null
+        if (Utility.apiUrl.isNullOrEmpty()) {
+            Log.e(TAG, "API URL is null or empty")
+            Toast.makeText(this, "Configuration error: API URL is not set", Toast.LENGTH_LONG).show()
+            loadingProgressBar.visibility = View.GONE
+            noOrdersText.visibility = View.VISIBLE
+            noOrdersText.text = "Configuration error. Please restart the app."
+            return
+        }
+
+        val url = "${Utility.apiUrl}/api/orders"
+        Log.d(TAG, "Request URL: $url")
+
         val queue = Volley.newRequestQueue(this)
 
         val jsonArrayRequest = object : JsonArrayRequest(
             Request.Method.GET, url, null,
             Response.Listener<JSONArray> { response ->
+                // Hide loading indicator
+                loadingProgressBar.visibility = View.GONE
+
                 // Clear existing orders
                 purchasesContainer.removeAllViews()
-                Log.d("PurchasesActivity", "Received ${response.length()} orders")
+                Log.d(TAG, "Received ${response.length()} orders")
 
-                // Filter orders by status
+                // Filter orders by payment status
                 val filteredOrders = JSONArray()
                 for (i in 0 until response.length()) {
                     val order = response.getJSONObject(i)
-                    val orderStatus = order.optString("status", "")
                     val paymentCompleted = order.optBoolean("paymentCompleted", false)
 
-                    // Map payment status to order status if status field is empty
-                    if (orderStatus.isEmpty()) {
-                        if ((status == "pending" && !paymentCompleted) ||
-                            (status == "completed" && paymentCompleted)) {
-                            filteredOrders.put(order)
+                    when (status) {
+                        // To Pay tab: show orders where payment is not completed
+                        "pending" -> {
+                            if (!paymentCompleted) filteredOrders.put(order)
                         }
-                    } else if (orderStatus.equals(status, ignoreCase = true)) {
-                        filteredOrders.put(order)
+
+                        // To Ship tab: show orders where payment is completed
+                        "to_ship" -> {
+                            if (paymentCompleted) filteredOrders.put(order)
+                        }
+
+                        // For other tabs, use the regular status field if present
+                        else -> {
+                            val orderStatus = order.optString("status", "")
+                            if (orderStatus.equals(status, ignoreCase = true)) {
+                                filteredOrders.put(order)
+                            }
+                        }
                     }
                 }
 
-                Log.d("PurchasesActivity", "Filtered to ${filteredOrders.length()} orders with status $status")
+                Log.d(TAG, "Filtered to ${filteredOrders.length()} orders with status $status")
 
                 if (filteredOrders.length() == 0) {
                     noOrdersText.visibility = View.VISIBLE
+                    noOrdersText.text = "No orders found"
                     return@Listener
                 }
 
@@ -160,16 +217,47 @@ class PurchasesActivity : Activity() {
                 }
             },
             Response.ErrorListener { error ->
-                Log.e("PurchasesActivity", "Error fetching orders: ${error.message}")
-                Toast.makeText(this, "Error fetching orders: ${error.message}", Toast.LENGTH_LONG).show()
+                // Hide loading indicator
+                loadingProgressBar.visibility = View.GONE
+
+                val errorMessage = when {
+                    error.networkResponse == null -> "Network error: Check your connection"
+                    error.networkResponse.statusCode == 401 -> "Authentication error: Please log in again"
+                    error.networkResponse.statusCode == 404 -> "API endpoint not found: Check server configuration"
+                    else -> "Error fetching orders: ${error.message ?: "Unknown error"}"
+                }
+
+                Log.e(TAG, "Error fetching orders: $errorMessage", error)
+                Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+
                 noOrdersText.visibility = View.VISIBLE
+                noOrdersText.text = "Could not load orders. Please try again."
             }
         ) {
             @Throws(AuthFailureError::class)
             override fun getHeaders(): Map<String, String> {
                 val headers = HashMap<String, String>()
-                val sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
-                val token = sharedPreferences.getString("token", "")
+
+                // Try to get token from Utility class first
+                var token = Utility.token
+
+                // If token is null, try to get from SharedPreferences
+                if (token.isNullOrEmpty()) {
+                    val sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
+                    token = sharedPreferences.getString("token", "")
+
+                    // Update the utility class with this token for future use
+                    if (!token.isNullOrEmpty()) {
+                        Utility.token = token
+                    }
+                }
+
+                if (token.isNullOrEmpty()) {
+                    Log.e(TAG, "Authentication token is empty")
+                } else {
+                    Log.d(TAG, "Using token for authentication (length: ${token.length})")
+                }
+
                 headers["Authorization"] = "Bearer $token"
                 return headers
             }
@@ -180,265 +268,237 @@ class PurchasesActivity : Activity() {
 
     @SuppressLint("MissingInflatedId")
     private fun displayOrder(order: JSONObject) {
-        // Inflate order item layout
-        val orderView = LayoutInflater.from(this).inflate(R.layout.order_item, purchasesContainer, false)
-
-        // Find views in the inflated layout
-        val productImageView = orderView.findViewById<ImageView>(R.id.ivOrderProductImage)
-        val orderIdView = orderView.findViewById<TextView>(R.id.tvOrderId)
-        val productNameView = orderView.findViewById<TextView>(R.id.tvOrderProductName)
-        val variantView = orderView.findViewById<TextView>(R.id.tvOrderVariant)
-        val priceView = orderView.findViewById<TextView>(R.id.tvOrderPrice)
-        val quantityView = orderView.findViewById<TextView>(R.id.tvOrderQuantity)
-        val totalAmountView = orderView.findViewById<TextView>(R.id.tvOrderTotalAmount)
-        val payNowButton = orderView.findViewById<Button>(R.id.btnPayNow)
-
-        // Set values from the order
         try {
-            // Use orderId if available, otherwise default to "Order Details"
-            orderIdView.text = if (order.has("orderId")) {
-                "Order #" + order.getString("orderId")
+            // Inflate order item layout
+            val orderView = LayoutInflater.from(this).inflate(R.layout.order_item, purchasesContainer, false)
+
+            // Find views in the inflated layout
+            val productImageView = orderView.findViewById<ImageView>(R.id.ivOrderProductImage)
+            val orderIdView = orderView.findViewById<TextView>(R.id.tvOrderId)
+            val productNameView = orderView.findViewById<TextView>(R.id.tvOrderProductName)
+            val variantView = orderView.findViewById<TextView>(R.id.tvOrderVariant)
+            val priceView = orderView.findViewById<TextView>(R.id.tvOrderPrice)
+            val quantityView = orderView.findViewById<TextView>(R.id.tvOrderQuantity)
+            val totalAmountView = orderView.findViewById<TextView>(R.id.tvOrderTotalAmount)
+            val buttonContainer = orderView.findViewById<LinearLayout>(R.id.orderButtonContainer)
+
+            // Set order ID
+            orderIdView.text = "Order #" + order.optString("orderId", "Unknown")
+
+            // Handle order items
+            if (order.has("items") && order.getJSONArray("items").length() > 0) {
+                val firstItem = order.getJSONArray("items").getJSONObject(0)
+                val itemCount = order.getJSONArray("items").length()
+
+                // Display first item details
+                productNameView.text = firstItem.optString("productName", "Unknown Product")
+                variantView.text = firstItem.optString("productColor", "Standard")
+
+                val price = firstItem.optDouble("productPrice", 0.0)
+                priceView.text = "₱${String.format("%,.0f", price)}"
+
+                val quantity = firstItem.optInt("quantity", 1)
+                quantityView.text = "x$quantity"
+
+                // Load product image
+                val productImage = firstItem.optString("productImage", "")
+                loadProductImage(productImageView, productImage)
+
+                // Show additional items indicator if there are more items
+                if (itemCount > 1) {
+                    val itemCountIndicator = TextView(this)
+                    itemCountIndicator.text = "+${itemCount - 1} more item${if (itemCount - 1 > 1) "s" else ""}"
+                    itemCountIndicator.setTextColor(resources.getColor(android.R.color.darker_gray))
+                    itemCountIndicator.textSize = 12f
+
+                    val detailsContainer = orderView.findViewById<LinearLayout>(R.id.orderDetailsContainer)
+                    detailsContainer.addView(itemCountIndicator)
+                }
             } else {
-                "Order Details"
+                // Fallback for older order format
+                productNameView.text = order.optString("productName", "Unknown Product")
+                variantView.text = order.optString("productColor", "Standard")
+
+                val price = order.optDouble("productPrice", 0.0)
+                priceView.text = "₱${String.format("%,.0f", price)}"
+
+                val quantity = order.optInt("quantity", 1)
+                quantityView.text = "x$quantity"
+
+                // Load product image
+                val productImage = order.optString("productImage", "")
+                loadProductImage(productImageView, productImage)
             }
+
+            // Set total amount
+            totalAmountView.text = "₱${String.format("%,.0f", order.optDouble("totalAmount", 0.0))}"
+
+            // Add the order view to the container
+            purchasesContainer.addView(orderView)
+
         } catch (e: Exception) {
-            orderIdView.text = "Order Details"
+            Log.e(TAG, "Error displaying order: ${e.message}", e)
         }
-
-        productNameView.text = order.optString("productName", "Unknown Product")
-
-        // Fixed: Just use "variant" as per our server model
-        variantView.text = order.optString("variant", "Standard")
-
-        // Handle price field
-        val price = if (order.has("price")) {
-            order.optDouble("price", 0.0)
-        } else {
-            val totalAmount = order.optDouble("totalAmount", 0.0)
-            val quantity = order.optInt("quantity", 1)
-            if (quantity > 0) totalAmount / quantity else 0.0
-        }
-
-        priceView.text = "₱$price"
-        quantityView.text = "x${order.optInt("quantity", 1)}"
-        totalAmountView.text = "₱${order.optDouble("totalAmount", 0.0)}"
-
-        // Handle the product image - now supporting multiple formats
-        handleProductImage(order, productImageView)
-
-        // Set Pay Now button visibility based on order status
-        // Show "Pay Now" button only for pending orders that need payment
-        if (currentTab == "pending" && !order.optBoolean("paymentCompleted", false)) {
-            payNowButton.visibility = View.VISIBLE
-            payNowButton.setOnClickListener {
-                // Handle payment process
-                handlePayment(order)
-            }
-        } else {
-            payNowButton.visibility = View.GONE
-        }
-
-        // Add the order view to the container
-        purchasesContainer.addView(orderView)
     }
 
-    private fun handleProductImage(order: JSONObject, imageView: ImageView) {
-        try {
-            // Check if we have an image object with type information
-            if (order.has("productImage") && !order.isNull("productImage")) {
-                val imageData = order.get("productImage")
+    private fun loadProductImage(imageView: ImageView, imageData: String) {
+        if (imageData.isEmpty()) {
+            Log.d(TAG, "Product image is empty, using placeholder")
+            imageView.setImageResource(R.drawable.placeholder_image)
+            return
+        }
 
-                // If it's a string, assume it's a URL or resource name
-                if (imageData is String) {
-                    handleImageString(imageData, imageView)
-                }
-                // If it's a JSONObject, check for type
-                else if (imageData is JSONObject) {
-                    when (imageData.optString("type", "")) {
-                        "resourceId" -> {
-                            // Handle resource ID
-                            val resourceId = imageData.optInt("value", 0)
-                            if (resourceId != 0) {
-                                imageView.setImageResource(resourceId)
-                            } else {
-                                // Try to get resource by name
-                                val resourceName = imageData.optString("resourceName", "")
-                                if (resourceName.isNotEmpty()) {
-                                    val resId = resources.getIdentifier(resourceName, "drawable", packageName)
-                                    if (resId != 0) {
-                                        imageView.setImageResource(resId)
-                                    } else {
-                                        imageView.setImageResource(R.drawable.placeholder_image)
-                                    }
-                                } else {
-                                    imageView.setImageResource(R.drawable.placeholder_image)
-                                }
-                            }
-                        }
-                        "base64" -> {
-                            // Handle base64 image
-                            val base64String = imageData.optString("value", "")
-                            if (base64String.isNotEmpty()) {
-                                try {
-                                    val decodedBytes = Base64.decode(base64String, Base64.DEFAULT)
-                                    val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
-                                    imageView.setImageBitmap(bitmap)
-                                } catch (e: Exception) {
-                                    imageView.setImageResource(R.drawable.placeholder_image)
-                                }
-                            } else {
-                                imageView.setImageResource(R.drawable.placeholder_image)
-                            }
-                        }
-                        else -> {
-                            // Unknown type, use placeholder
-                            imageView.setImageResource(R.drawable.placeholder_image)
-                        }
+        Log.d(TAG, "Product image data length: ${imageData.length}")
+        Log.d(TAG, "First 50 chars: ${imageData.take(50)}")
+
+        // First check if it looks like a Base64 image
+        if (isLikelyBase64(imageData)) {
+            Log.d(TAG, "Treating as Base64 image")
+            loadBase64Image(imageView, imageData)
+            return
+        }
+
+        // If not Base64, try as URL
+        try {
+            Log.d(TAG, "Trying to load as URL: $imageData")
+
+            // Make sure the URL has a protocol
+            val imageUrl = if (!imageData.startsWith("http://") && !imageData.startsWith("https://")) {
+                "https://$imageData"
+            } else {
+                imageData
+            }
+
+            Picasso.get()
+                .load(imageUrl)
+                .placeholder(R.drawable.placeholder_image)
+                .error(R.drawable.placeholder_image)
+                .resize(220, 220)
+                .centerCrop()
+                .into(imageView, object : Callback {
+                    override fun onSuccess() {
+                        Log.d(TAG, "Successfully loaded product image from URL")
                     }
-                } else {
-                    // Unknown format, use placeholder
-                    imageView.setImageResource(R.drawable.placeholder_image)
-                }
-            } else if (order.has("PRODUCT_IMAGE_RES_ID")) {
-                // Try to get image resource ID directly
-                val resourceId = order.optInt("PRODUCT_IMAGE_RES_ID", 0)
-                if (resourceId != 0) {
-                    imageView.setImageResource(resourceId)
-                } else {
-                    imageView.setImageResource(R.drawable.placeholder_image)
-                }
-            } else {
-                // No image data, use placeholder
-                imageView.setImageResource(R.drawable.placeholder_image)
-            }
+
+                    override fun onError(e: Exception?) {
+                        Log.e(TAG, "Failed to load image from URL: ${e?.message}")
+
+                        // As fallback, try one more time with Base64 approach
+                        loadBase64Image(imageView, imageData)
+                    }
+                })
         } catch (e: Exception) {
-            Log.e("PurchasesActivity", "Error handling product image: ${e.message}")
-            // Any exception, use placeholder
-            imageView.setImageResource(R.drawable.placeholder_image)
+            Log.e(TAG, "Exception while loading image as URL: ${e.message}", e)
+            // Try Base64 as fallback
+            loadBase64Image(imageView, imageData)
         }
     }
 
-    private fun handleImageString(imageData: String, imageView: ImageView) {
-        // Check if it's a URL (starts with http)
-        if (imageData.startsWith("http")) {
-            loadImageWithVolley(imageData, imageView)
-        } else {
-            // Might be a resource name, try to load it
-            try {
-                val resourceId = resources.getIdentifier(imageData, "drawable", packageName)
-                if (resourceId != 0) {
-                    imageView.setImageResource(resourceId)
-                } else {
-                    imageView.setImageResource(R.drawable.placeholder_image)
-                }
-            } catch (e: Exception) {
-                imageView.setImageResource(R.drawable.placeholder_image)
+    private fun isLikelyBase64(imageString: String): Boolean {
+        // Quick check for very short strings or empty strings
+        if (imageString.length < 50) return false
+
+        // Check for common base64 image prefixes
+        val commonPrefixes = listOf(
+            "data:image/", // Data URI scheme
+            "/9j/",        // JPEG
+            "iVBOR",       // PNG
+            "R0lGOD",      // GIF
+            "PHN2Zw"       // SVG
+        )
+
+        for (prefix in commonPrefixes) {
+            if (imageString.contains(prefix)) {
+                return true
             }
         }
+
+        // Check for base64 character pattern (mostly A-Za-z0-9+/=)
+        val base64Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="
+        val sampleSize = minOf(100, imageString.length)
+        val sample = imageString.substring(0, sampleSize)
+
+        var base64CharCount = 0
+        for (c in sample) {
+            if (c in base64Chars) {
+                base64CharCount++
+            }
+        }
+
+        // If more than 90% are base64 characters, likely base64
+        return base64CharCount.toFloat() / sampleSize > 0.9f
     }
 
-    private fun loadImageWithVolley(imageUrl: String, imageView: ImageView) {
+    private fun loadBase64Image(imageView: ImageView, imageData: String) {
         try {
-            val queue = Volley.newRequestQueue(this)
-            val imageRequest = com.android.volley.toolbox.ImageRequest(
-                imageUrl,
-                { bitmap -> imageView.setImageBitmap(bitmap) },
-                0, 0, ImageView.ScaleType.CENTER_CROP, Bitmap.Config.ARGB_8888,
-                { error ->
-                    // If Volley ImageRequest fails, try alternative method
-                    loadImageAlternative(imageUrl, imageView)
-                }
-            )
-            queue.add(imageRequest)
-        } catch (e: Exception) {
-            // If exception occurs, use placeholder
-            imageView.setImageResource(R.drawable.placeholder_image)
-        }
-    }
+            // Extract base64 part if data URI format
+            var base64Image = imageData
+            if (base64Image.contains("data:image")) {
+                base64Image = base64Image.substring(base64Image.indexOf(",") + 1)
+            }
 
-    private fun loadImageAlternative(imageUrl: String, imageView: ImageView) {
-        // Alternative image loading in background thread
-        thread {
+            // Clean the string
+            base64Image = base64Image.trim().replace("\\s".toRegex(), "")
+
             try {
-                val url = URL(imageUrl)
-                val connection = url.openConnection()
-                connection.doInput = true
-                connection.connect()
-                val input = connection.getInputStream()
-                val bitmap = BitmapFactory.decodeStream(input)
+                // Decode the base64 string to byte array
+                val imageBytes = Base64.decode(base64Image, Base64.DEFAULT)
 
-                // Update UI on main thread
-                runOnUiThread {
+                if (imageBytes.isEmpty()) {
+                    Log.e(TAG, "Empty byte array after decoding base64")
+                    imageView.setImageResource(R.drawable.placeholder_image)
+                    return
+                }
+
+                // Use options to prevent OOM for large images
+                val options = BitmapFactory.Options().apply {
+                    inJustDecodeBounds = true
+                }
+
+                // Just get dimensions first
+                BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size, options)
+
+                // Calculate sample size for downsampling large images
+                options.inSampleSize = calculateInSampleSize(options, 500, 500)
+                options.inJustDecodeBounds = false
+
+                // Now decode with appropriate sampling
+                val bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size, options)
+
+                if (bitmap != null) {
                     imageView.setImageBitmap(bitmap)
-                }
-            } catch (e: Exception) {
-                // If all else fails, set placeholder on main thread
-                runOnUiThread {
+                    Log.d(TAG, "Successfully set bitmap from base64")
+                } else {
+                    Log.e(TAG, "Failed to decode bitmap from base64")
                     imageView.setImageResource(R.drawable.placeholder_image)
                 }
+            } catch (e: IllegalArgumentException) {
+                Log.e(TAG, "Invalid base64 string: ${e.message}")
+                imageView.setImageResource(R.drawable.placeholder_image)
+            } catch (e: Exception) {
+                Log.e(TAG, "Base64 decoding failed: ${e.message}")
+                imageView.setImageResource(R.drawable.placeholder_image)
             }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error processing base64 image: ${e.message}")
+            imageView.setImageResource(R.drawable.placeholder_image)
         }
     }
 
-    private fun handlePayment(order: JSONObject) {
-        // Navigate to CheckoutActivity with order details for payment
-        val intent = Intent(this, CheckoutActivity::class.java)
+    private fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
+        val height = options.outHeight
+        val width = options.outWidth
+        var inSampleSize = 1
 
-        // Pass order details - adapting to match CheckoutActivity's expected parameters
-        intent.putExtra("ORDER_ID", order.optString("orderId", ""))
+        if (height > reqHeight || width > reqWidth) {
+            val halfHeight = height / 2
+            val halfWidth = width / 2
 
-        // Add product details that CheckoutActivity expects
-        if (order.has("productName")) {
-            intent.putExtra("PRODUCT_NAME", order.getString("productName"))
-        }
-
-        // Handle possible variant field name differences
-        if (order.has("variant")) {
-            intent.putExtra("PRODUCT_VARIANT", order.getString("variant"))
-        } else if (order.has("productVariant")) {
-            intent.putExtra("PRODUCT_VARIANT", order.getString("productVariant"))
-        }
-
-        intent.putExtra("PRODUCT_QUANTITY", order.optInt("quantity", 1))
-
-        // Calculate price if needed
-        val price = if (order.has("price")) {
-            order.optDouble("price", 0.0)
-        } else {
-            val totalAmount = order.optDouble("totalAmount", 0.0)
-            val quantity = order.optInt("quantity", 1)
-            if (quantity > 0) totalAmount / quantity else 0.0
-        }
-
-        intent.putExtra("PRODUCT_PRICE", price)
-        intent.putExtra("TOTAL_AMOUNT", order.optDouble("totalAmount", 0.0))
-
-        // Pass product image information if available
-        try {
-            if (order.has("productImage") && !order.isNull("productImage")) {
-                val imageData = order.get("productImage")
-                if (imageData is JSONObject && imageData.optString("type", "") == "resourceId") {
-                    // If we have a resource ID, pass it
-                    val resourceId = imageData.optInt("value", 0)
-                    if (resourceId != 0) {
-                        intent.putExtra("PRODUCT_IMAGE_RES_ID", resourceId)
-                    } else {
-                        // Try by resource name
-                        val resourceName = imageData.optString("resourceName", "")
-                        if (resourceName.isNotEmpty()) {
-                            val resId = resources.getIdentifier(resourceName, "drawable", packageName)
-                            if (resId != 0) {
-                                intent.putExtra("PRODUCT_IMAGE_RES_ID", resId)
-                            }
-                        }
-                    }
-                }
+            while ((halfHeight / inSampleSize) >= reqHeight && (halfWidth / inSampleSize) >= reqWidth) {
+                inSampleSize *= 2
             }
-        } catch (e: Exception) {
-            // If we can't get the image resource ID, continue without it
-            Log.e("PurchasesActivity", "Error handling image for payment: ${e.message}")
         }
 
-        startActivity(intent)
+        return inSampleSize
     }
 }

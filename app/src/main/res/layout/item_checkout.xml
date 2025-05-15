@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/imageItem"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@color/four"
+        android:scaleType="centerCrop"
+        android:src="@drawable/placeholder_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="12dp"/>
+
+    <TextView
+        android:id="@+id/tvProductName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="8dp"
+        android:text="Product Name"
+        android:fontFamily="@font/poppins_black"
+        android:textColor="@color/one"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@id/tvPrice"
+        app:layout_constraintStart_toEndOf="@id/imageItem"
+        app:layout_constraintTop_toTopOf="@id/imageItem" />
+
+    <TextView
+        android:id="@+id/tvVariant"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Color"
+        android:fontFamily="@font/poppins_light"
+        android:textColor="@color/two"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/tvProductName"
+        app:layout_constraintStart_toStartOf="@id/tvProductName"
+        app:layout_constraintTop_toBottomOf="@id/tvProductName" />
+
+    <TextView
+        android:id="@+id/tvQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_light"
+        android:text="x1"
+        android:textColor="@color/two"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/tvVariant"
+        app:layout_constraintTop_toBottomOf="@id/tvVariant"
+        app:layout_constraintBottom_toBottomOf="@id/imageItem"/>
+
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="₱0"
+        android:fontFamily="@font/poppins_bold"
+        android:textColor="@color/one"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imageItem" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

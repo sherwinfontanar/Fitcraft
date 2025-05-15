@@ -61,159 +61,18 @@
         android:layout_height="0dp"
         android:fillViewport="true"
         android:overScrollMode="never"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintBottom_toTopOf="@id/voucherContainer">
+        app:layout_constraintBottom_toTopOf="@id/voucherContainer"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <!-- Cart Items Container -->
         <LinearLayout
+            android:id="@+id/cartItemsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="8dp">
 
-            <!-- Example Cart Item (copy as needed for multiple items) -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:layout_margin="8dp"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="2dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="140dp"
-                    android:background="@color/two"
-                    android:padding="12dp">
-
-                    <CheckBox
-                        android:id="@+id/checkboxItem1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/white"
-                        app:layout_constraintBottom_toBottomOf="@id/imageItem1"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/imageItem1" />
-
-                    <ImageView
-                        android:id="@+id/imageItem1"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@color/three"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/top"
-                        app:layout_constraintStart_toEndOf="@id/checkboxItem1"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvProductName1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:text="A-Line Shirt"
-                        android:fontFamily="@font/poppins_black"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/imageItem1"
-                        app:layout_constraintTop_toTopOf="@id/imageItem1" />
-
-                    <TextView
-                        android:id="@+id/tvVariant1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:text="Turquoise"
-                        android:fontFamily="@font/poppins_regular"
-                        android:textColor="@color/four"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@id/tvProductName1"
-                        app:layout_constraintTop_toBottomOf="@id/tvProductName1" />
-
-                    <TextView
-                        android:id="@+id/tvPrice1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="₱890"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="@id/tvProductName1"
-                        app:layout_constraintTop_toBottomOf="@id/tvVariant1" />
-
-                    <TextView
-                        android:id="@+id/tvOriginalPrice1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginBottom="4dp"
-                        android:text="₱1,290"
-                        android:fontFamily="@font/poppins_light"
-                        android:textColor="@color/three"
-                        android:textSize="14sp"
-                        android:textStyle="normal"
-                        app:layout_constraintBottom_toBottomOf="@id/tvPrice1"
-                        app:layout_constraintStart_toEndOf="@id/tvPrice1" />
-
-                    <TextView
-                        android:id="@+id/tvDiscount1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:text="8% cheaper since added to cart"
-                        android:fontFamily="@font/poppins_regular"
-                        android:textColor="@color/four"
-                        android:textSize="10sp"
-                        app:layout_constraintStart_toStartOf="@id/tvPrice1"
-                        app:layout_constraintTop_toBottomOf="@id/tvPrice1" />
-
-                    <LinearLayout
-                        android:id="@+id/quantityControl1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="28dp"
-                        android:layout_marginRight="5dp"
-                        android:background="@color/three"
-                        android:orientation="horizontal"
-                        app:layout_constraintBottom_toBottomOf="@id/tvPrice1"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/tvPrice1">
-
-                        <ImageButton
-                            android:id="@+id/btnMinus1"
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
-                            android:background="@color/white"
-                            android:contentDescription="Decrease"
-                            android:padding="8dp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/minus" />
-
-
-                        <TextView
-                            android:id="@+id/tvQuantity1"
-                            android:layout_width="28dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:background="@color/white"
-                            android:text="1"
-                            android:textColor="@color/one"
-                            android:textSize="16sp" />
-
-                        <ImageButton
-                            android:id="@+id/btnPlus1"
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
-                            android:background="@color/white"
-                            android:contentDescription="Increase"
-                            android:padding="8dp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/pluss"/>
-                    </LinearLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
+            <!-- Cart items will be added here dynamically -->
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
@@ -227,8 +86,8 @@
         app:cardCornerRadius="8dp"
         app:cardElevation="2dp"
         app:layout_constraintBottom_toTopOf="@id/bottomBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -256,18 +115,18 @@
                 android:fontFamily="@font/poppins_regular"
                 android:textColor="@color/three"
                 android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/tvVoucherLabel"
                 app:layout_constraintEnd_toStartOf="@id/chevron"
-                app:layout_constraintTop_toTopOf="@id/tvVoucherLabel"
-                app:layout_constraintBottom_toBottomOf="@id/tvVoucherLabel" />
+                app:layout_constraintTop_toTopOf="@id/tvVoucherLabel" />
 
             <ImageView
                 android:id="@+id/chevron"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:background="@drawable/chevron"
+                app:layout_constraintBottom_toBottomOf="@id/tvVoucherLabel"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvVoucherLabel"
-                app:layout_constraintBottom_toBottomOf="@id/tvVoucherLabel" />
+                app:layout_constraintTop_toTopOf="@id/tvVoucherLabel" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -276,39 +135,36 @@
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="@color/two"
-        android:padding="16dp"
         android:gravity="center_vertical|end"
+        android:orientation="horizontal"
+        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <CheckBox
             android:id="@+id/checkboxAllItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:buttonTint="@color/white"
-            app:layout_constraintBottom_toBottomOf="@id/imageItem1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/imageItem1" />
+            android:buttonTint="@color/white" />
 
         <TextView
             android:id="@+id/tvAllItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="All Items"
             android:fontFamily="@font/poppins_regular"
+            android:text="All Items"
             android:textColor="@color/white"
-            android:textSize="14sp"/>
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tvTotalLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="Total:"
+            android:layout_marginStart="10dp"
             android:fontFamily="@font/poppins_semibold"
+            android:text="Total:"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
@@ -317,8 +173,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="₱890"
             android:fontFamily="@font/poppins_bold"
+            android:text="₱0"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
@@ -331,10 +187,21 @@
             android:id="@+id/btnCheckout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Checkout"
             android:backgroundTint="@color/three"
-            android:textColor="@color/white"
-            android:fontFamily="@font/poppins_semibold" />
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Checkout"
+            android:textColor="@color/white" />
     </LinearLayout>
+
+    <!-- Loading Indicator -->
+    <ProgressBar
+        android:id="@+id/loadingProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

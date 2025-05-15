@@ -101,7 +101,7 @@ class LandingActivity : Activity() {
         }
 
         findViewById<LinearLayout>(R.id.homebutton).setOnClickListener {
-            startActivity(Intent(this, CheckoutActivity::class.java))
+            startActivity(Intent(this, LandingActivity::class.java))
         }
 
         findViewById<LinearLayout>(R.id.logoutbutton).setOnClickListener {
