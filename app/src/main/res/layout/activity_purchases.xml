@@ -14,7 +14,6 @@
       android:layout_height="wrap_content"
       android:layout_marginBottom="12dp">
 
-
     <TextView
         android:id="@+id/titleText"
         android:layout_width="wrap_content"
@@ -104,6 +103,16 @@
       android:layout_height="1dp"
       android:background="#E0E0E0"
       android:layout_marginBottom="16dp"/>
+
+  <!-- Loading Progress Bar -->
+  <ProgressBar
+      android:id="@+id/loadingProgressBar"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_marginTop="20dp"
+      android:layout_marginBottom="20dp"
+      android:visibility="gone"/>
 
   <!-- No Orders Text - Displayed when no orders are available -->
   <TextView

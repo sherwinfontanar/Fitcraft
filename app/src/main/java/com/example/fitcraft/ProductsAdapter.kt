@@ -1,6 +1,7 @@
 package com.example.fitcraft
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Base64
@@ -97,6 +98,14 @@ class ProductsAdapter(
         holder.productColor.text = "Color: ${product.color}"
         holder.productBodyType.text = "BodyType: ${product.bodyType}"
         holder.productDescription.text = product.description
+
+        // Set click listener for the entire item
+        holder.itemView.setOnClickListener {
+            // Navigate to ProductDetailsActivity with the product ID
+            val intent = Intent(context, ProductDetailsActivity::class.java)
+            intent.putExtra("PRODUCT_ID", product.id)
+            context.startActivity(intent)
+        }
     }
 
     /**

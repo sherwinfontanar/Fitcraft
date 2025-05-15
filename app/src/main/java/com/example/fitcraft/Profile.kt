@@ -43,12 +43,18 @@ class Profile : Activity() {
             startActivity(intent)
         }
 
-        val homebutton = findViewById<LinearLayout>(R.id.homebutton)
+        val homebutton = findViewById<TextView>(R.id.home)
         homebutton.setOnClickListener {
             Log.e("FitCraft Home", "Home is Clicked")
 
 
-            val intent = Intent(this, CheckoutActivity::class.java)
+            val intent = Intent(this, LandingActivity::class.java)
+            startActivity(intent)
+        }
+
+        val toPay = findViewById<LinearLayout>(R.id.purchasesContainer1)
+        toPay.setOnClickListener {
+            val intent = Intent(this, PurchasesActivity::class.java)
             startActivity(intent)
         }
 
