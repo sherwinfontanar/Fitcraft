@@ -12,20 +12,19 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:background="#FFFFFF"
+        android:background="@color/two"
         android:elevation="4dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <!-- Back Button - Adjusted padding and constraints -->
         <ImageButton
             android:id="@+id/btnBack"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/back"
             android:contentDescription="Back"
-            android:src="@drawable/backbutton"
-            android:padding="8dp"
-            android:layout_marginStart="4dp"
+            app:tint="@color/one"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -35,9 +34,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tailor Review"
-            android:textColor="#333333"
+            android:textColor="@color/white"
             android:textSize="20sp"
-            android:textStyle="bold"
+            android:fontFamily="@font/poppins_bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +45,8 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/four">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp"
-                android:background="@android:color/white"
+                android:background="@drawable/rounded"
                 android:elevation="4dp">
 
                 <TextView
@@ -68,9 +68,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Fontanar Tailoring Services"
-                    android:textColor="#1cbb9c"
+                    android:textColor="@color/one"
                     android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/poppins_bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -88,7 +88,7 @@
                         android:numStars="5"
                         android:rating="4.7"
                         android:stepSize="0.1"
-                        android:progressTint="#FFD700" />
+                        android:progressTint="@color/one" />
 
                     <TextView
                         android:id="@+id/tv_rating_value"
@@ -97,9 +97,9 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="8dp"
                         android:text="4.7"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/one"
                         android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/poppins_regular" />
 
                     <TextView
                         android:id="@+id/tv_review_count"
@@ -108,15 +108,16 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="8dp"
                         android:text="(532 reviews)"
-                        android:textColor="#666666"
-                        android:textSize="14sp" />
+                        android:textColor="@color/two"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/poppins_light"/>
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginVertical="16dp"
-                    android:background="#D3D3D3" />
+                    android:background="@color/one" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -126,7 +127,7 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@android:drawable/ic_menu_recent_history"
+                        android:src="@drawable/time"
                         android:layout_gravity="center_vertical"/>
 
                     <TextView
@@ -135,7 +136,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:text="Open: 9:00 AM - 6:00 PM"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/one"
+                        android:fontFamily="@font/poppins_regular"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -148,7 +150,7 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@android:drawable/ic_menu_call"
+                        android:src="@drawable/telephone"
                         android:layout_gravity="center_vertical"/>
 
                     <TextView
@@ -157,7 +159,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:text="+1 (555) 123-4567"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/one"
+                        android:fontFamily="@font/poppins_regular"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -166,9 +169,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:backgroundTint="#1cbb9c"
+                    android:background="@drawable/edit_button_background"
                     android:padding="12dp"
                     android:text="Select Service"
+                    android:fontFamily="@font/poppins_bold"
                     android:textColor="@android:color/white" />
             </LinearLayout>
 
@@ -179,14 +183,15 @@
                 android:orientation="vertical"
                 android:padding="16dp"
                 android:layout_marginTop="16dp"
-                android:background="@android:color/white"
+                android:background="@drawable/roundedtwo"
                 android:elevation="4dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Services"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/poppins_bold"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -195,7 +200,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="Our services will appear here"
-                    android:textColor="#666666" />
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <!-- Ratings & Reviews Section -->
@@ -205,7 +211,7 @@
                 android:orientation="vertical"
                 android:padding="16dp"
                 android:layout_marginTop="16dp"
-                android:background="@android:color/white"
+                android:background="@drawable/rounded"
                 android:elevation="4dp">
 
                 <RelativeLayout
@@ -218,9 +224,9 @@
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
                         android:text="Ratings &amp; Reviews"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/one"
                         android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/poppins_bold" />
 
                     <Button
                         android:id="@+id/btn_see_all_reviews"
@@ -230,7 +236,8 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:text="See All"
-                        android:textColor="#1cbb9c" />
+                        android:fontFamily="@font/poppins_light"
+                        android:textColor="@color/one" />
                 </RelativeLayout>
 
                 <!-- Average Rating Display -->
@@ -253,9 +260,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="4.7"
-                            android:textColor="#1cbb9c"
+                            android:textColor="@color/one"
                             android:textSize="36sp"
-                            android:textStyle="bold" />
+                            android:fontFamily="@font/poppins_bold" />
 
                         <RatingBar
                             android:id="@+id/rb_average_rating"
@@ -266,7 +273,7 @@
                             android:numStars="5"
                             android:rating="4.7"
                             android:stepSize="0.1"
-                            android:progressTint="#FFD700" />
+                            android:progressTint="@color/one" />
 
                         <TextView
                             android:id="@+id/tv_total_reviews"
@@ -274,7 +281,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:text="532 reviews"
-                            android:textColor="#666666"
+                            android:fontFamily="@font/poppins_light"
+                            android:textColor="@color/two"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -298,7 +306,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="5"
-                                android:textColor="@android:color/black"
+                                android:textColor="@color/one"
+                                android:fontFamily="@font/poppins_semibold"
                                 android:textSize="12sp" />
 
                             <ProgressBar
@@ -309,14 +318,15 @@
                                 android:layout_marginHorizontal="8dp"
                                 android:layout_weight="1"
                                 android:progress="75"
-                                android:progressTint="#1cbb9c" />
+                                android:progressTint="@color/one" />
 
                             <TextView
                                 android:id="@+id/tv_5_star_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="75%"
-                                android:textColor="@android:color/black"
+                                android:textColor="@color/one"
+                                android:fontFamily="@font/poppins_semibold"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
@@ -333,7 +343,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="4"
-                                android:textColor="@android:color/black"
+                                android:textColor="@color/one"
+                                android:fontFamily="@font/poppins_semibold"
                                 android:textSize="12sp" />
 
                             <ProgressBar
@@ -344,14 +355,15 @@
                                 android:layout_marginHorizontal="8dp"
                                 android:layout_weight="1"
                                 android:progress="20"
-                                android:progressTint="#1cbb9c" />
+                                android:progressTint="@color/one" />
 
                             <TextView
                                 android:id="@+id/tv_4_star_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="20%"
-                                android:textColor="@android:color/black"
+                                android:textColor="@color/one"
+                                android:fontFamily="@font/poppins_semibold"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
@@ -367,7 +379,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="3"
-                                android:textColor="@android:color/black"
+                                android:textColor="@color/one"
+                                android:fontFamily="@font/poppins_semibold"
                                 android:textSize="12sp" />
 
                             <ProgressBar
@@ -378,18 +391,17 @@
                                 android:layout_marginHorizontal="8dp"
                                 android:layout_weight="1"
                                 android:progress="4"
-                                android:progressTint="#1cbb9c" />
+                                android:progressTint="@color/one" />
 
                             <TextView
                                 android:id="@+id/tv_3_star_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="4%"
-                                android:textColor="@android:color/black"
+                                android:textColor="@color/one"
+                                android:fontFamily="@font/poppins_semibold"
                                 android:textSize="12sp" />
                         </LinearLayout>
-
-                        <!-- Remaining star rows omitted for brevity -->
                     </LinearLayout>
                 </LinearLayout>
 
@@ -397,12 +409,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginVertical="16dp"
-                    android:background="#D3D3D3" />
+                    android:background="@color/one" />
 
                 <!-- Sample Review -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rounded_dashboard"
+                    android:padding="8dp"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -415,8 +429,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="John D."
-                            android:textColor="@android:color/black"
-                            android:textStyle="bold"
+                            android:textColor="@color/two"
+                            android:fontFamily="@font/poppins_bold"
                             android:textSize="14sp"/>
 
                         <RatingBar
@@ -428,22 +442,25 @@
                             android:isIndicator="true"
                             android:numStars="5"
                             android:rating="5"
-                            android:progressTint="#FFD700"/>
+                            android:progressTint="@color/one"/>
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="2 days ago"
                             android:textSize="12sp"
-                            android:textColor="#666666"
+                            android:textColor="@color/two"
+                            android:fontFamily="@font/poppins_light"
                             android:gravity="end"/>
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/reviemComment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Excellent service! They did a perfect job altering my suit for a wedding. Fast and professional."
-                        android:textColor="@android:color/black"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="@color/one"
                         android:textSize="14sp"/>
                 </LinearLayout>
             </LinearLayout>
