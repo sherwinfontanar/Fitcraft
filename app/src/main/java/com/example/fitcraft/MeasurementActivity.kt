@@ -183,7 +183,6 @@ class MeasurementActivity : Activity() {
             put("waist", waist.text.toString().toFloatOrNull())
             put("hips", hips.text.toString().toFloatOrNull())
             put("shoulderWidth", shoulderWidth.text.toString().toFloatOrNull())
-            put("highHipValue", highHipValue.text.toString().toFloatOrNull())
             put("neckToWaist", neckToWaist.text.toString().toFloatOrNull())
             put("waistToHern", waistToHern.text.toString().toFloatOrNull())
             val bustVal = bust.text.toString().toFloatOrNull() ?: 0f
@@ -191,6 +190,7 @@ class MeasurementActivity : Activity() {
             val hipsVal = hips.text.toString().toFloatOrNull() ?: 0f
             val highHipVal = highHipValue.text.toString().toFloatOrNull() ?: 0f // ← Replace with actual high hip field if different
             val calculatedBodyType = determineBodyType(bustVal, waistVal, hipsVal, highHipVal)
+            put("highHipValue", highHipValue.text.toString().toFloatOrNull())
             put("bodyType", calculatedBodyType)
             put("skinColor", skinColor.text.toString())
         }

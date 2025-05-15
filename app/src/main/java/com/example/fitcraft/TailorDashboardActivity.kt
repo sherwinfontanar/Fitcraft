@@ -57,7 +57,7 @@ class TailorDashboardActivity : Activity() {
     }
 
     private fun fetchProducts() {
-        val url = "${Utility.apiUrl}/api/products"
+        val url = "${Utility.apiUrl}/api/products/tailor"
 
         Log.d(TAG, "Fetching products from: $url")
 

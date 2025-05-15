@@ -6,7 +6,7 @@ import android.content.SharedPreferences
 object Utility {
     // Base URL of your API
     //const val apiUrl = "http://10.0.2.2:5000" // Change to your actual API URL
-     const val apiUrl = "http://172.20.10.9:5000"
+      const val apiUrl = "http://192.168.1.29:5000"
     // For storing token in memory temporarily
     private var _token: String? = null
 
