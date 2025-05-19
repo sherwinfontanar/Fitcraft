@@ -96,6 +96,19 @@ class LandingActivity : Activity() {
                         bodyShapeTextView.text = "Body Shape: ${response.getString("bodyType")}"
                     }
 
+                    val profilePictureBase64 = response.optString("profilePicture", "")
+                    if (profilePictureBase64.isNotEmpty()) {
+                        try {
+                            val decodedBytes = Base64.decode(profilePictureBase64, Base64.DEFAULT)
+                            val bitmap = android.graphics.BitmapFactory.decodeByteArray(
+                                decodedBytes, 0, decodedBytes.size
+                            )
+                            findViewById<ImageView>(R.id.ivProfilePicture).setImageBitmap(bitmap)
+                        } catch (e: Exception) {
+                            Log.e("LandingActivity", "Error decoding profile picture", e)
+                        }
+                    }
+
                     Log.d("LandingActivity", "Updated user info from API: $firstName")
                 } catch (e: JSONException) {
                     Log.e("LandingActivity", "Error parsing profile data: ${e.message}")

@@ -23,6 +23,7 @@ import com.android.volley.toolbox.Volley
 import com.example.fitcraft.utils.Utility
 import com.google.android.material.button.MaterialButton
 import org.json.JSONException
+import android.util.Base64
 
 class Profile : Activity() {
 
@@ -88,6 +89,19 @@ class Profile : Activity() {
 
                     // Update UI with just the full name
                     tvUsername.text = fullName
+
+                    val profilePictureBase64 = response.optString("profilePicture", "")
+                    if (profilePictureBase64.isNotEmpty()) {
+                        try {
+                            val decodedBytes = Base64.decode(profilePictureBase64, Base64.DEFAULT)
+                            val bitmap = android.graphics.BitmapFactory.decodeByteArray(
+                                decodedBytes, 0, decodedBytes.size
+                            )
+                            findViewById<ImageView>(R.id.iv_profile).setImageBitmap(bitmap)
+                        } catch (e: Exception) {
+                            Log.e("LandingActivity", "Error decoding profile picture", e)
+                        }
+                    }
 
                     Log.d("Profile", "Updated user info from API: $fullName")
                 } catch (e: JSONException) {
