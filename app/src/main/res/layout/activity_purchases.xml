@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FFFFFF"
+    android:background="@color/four"
     android:padding="16dp"
     tools:context=".PurchasesActivity">
 
@@ -14,14 +14,23 @@
       android:layout_height="wrap_content"
       android:layout_marginBottom="12dp">
 
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/back"
+        android:contentDescription="Back" />
+
     <TextView
         android:id="@+id/titleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="My Purchases"
         android:textSize="22sp"
-        android:textStyle="bold"
-        android:textColor="#000000"
+        android:fontFamily="@font/poppins_bold"
+        android:textColor="@color/one"
         android:layout_centerInParent="true" />
   </RelativeLayout>
 
@@ -46,8 +55,8 @@
           android:minWidth="80dp"
           android:gravity="center"
           android:text="To Pay"
-          android:textStyle="bold"
-          android:textColor="#FF5722"
+          android:fontFamily="@font/poppins_semibold"
+          android:textColor="@color/one"
           android:paddingVertical="8dp"
           android:paddingHorizontal="12dp"/>
 
@@ -58,7 +67,8 @@
           android:minWidth="80dp"
           android:gravity="center"
           android:text="To Ship"
-          android:textColor="#666666"
+          android:fontFamily="@font/poppins_semibold"
+          android:textColor="@color/three"
           android:paddingVertical="8dp"
           android:paddingHorizontal="12dp"/>
 
@@ -69,7 +79,8 @@
           android:minWidth="80dp"
           android:gravity="center"
           android:text="To Receive"
-          android:textColor="#666666"
+          android:fontFamily="@font/poppins_semibold"
+          android:textColor="@color/three"
           android:paddingVertical="8dp"
           android:paddingHorizontal="12dp"/>
 
@@ -80,7 +91,8 @@
           android:minWidth="80dp"
           android:gravity="center"
           android:text="Completed"
-          android:textColor="#666666"
+          android:fontFamily="@font/poppins_semibold"
+          android:textColor="@color/three"
           android:paddingVertical="8dp"
           android:paddingHorizontal="12dp"/>
 
@@ -91,7 +103,8 @@
           android:minWidth="80dp"
           android:gravity="center"
           android:text="Returns"
-          android:textColor="#666666"
+          android:fontFamily="@font/poppins_semibold"
+          android:textColor="@color/three"
           android:paddingVertical="8dp"
           android:paddingHorizontal="12dp"/>
     </LinearLayout>
@@ -120,7 +133,8 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="No Orders Yet"
-      android:textColor="#999999"
+      android:textColor="@color/one"
+      android:fontFamily="@font/poppins_regular"
       android:textSize="16sp"
       android:gravity="center"
       android:padding="32dp"
