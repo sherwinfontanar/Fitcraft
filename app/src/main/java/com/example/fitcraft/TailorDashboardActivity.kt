@@ -1,10 +1,13 @@
 package com.example.fitcraft
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,10 +34,15 @@ class TailorDashboardActivity : Activity() {
         uploadProductButton = findViewById(R.id.uploadProductButton)
         productsRecyclerView = findViewById(R.id.productsRecyclerView)
 
+
         // Set click listener for upload button
         uploadProductButton.setOnClickListener {
             val intent = Intent(this, ProductUploadActivity::class.java)
             startActivity(intent)
+        }
+
+        findViewById<LinearLayout>(R.id.logoutbutton).setOnClickListener {
+            showLogoutDialog()
         }
 
         // Initialize the products adapter
@@ -130,4 +138,26 @@ class TailorDashboardActivity : Activity() {
         val description: String,
         val imageUrl: String
     )
+
+    private fun showLogoutDialog() {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.activity_logout_dialog, null)
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.show()
+
+        dialogView.findViewById<Button>(R.id.btn_cancel).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialogView.findViewById<Button>(R.id.btn_confirm_logout).setOnClickListener {
+            dialog.dismiss()
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
+    }
 }

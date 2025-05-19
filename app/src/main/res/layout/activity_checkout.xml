@@ -163,7 +163,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:text="FitCraft Tailoring Services"
+                            android:text="Fontanar Tailoring Services"
                             android:fontFamily="@font/poppins_bold"
                             android:textColor="@color/white"
                             android:textSize="14sp"
