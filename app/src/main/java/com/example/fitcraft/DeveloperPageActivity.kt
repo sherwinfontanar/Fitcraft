@@ -1,5 +1,6 @@
 package com.example.fitcraft
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
@@ -17,6 +18,7 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 
 class DeveloperPageActivity : Activity() {
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_developer_page)
@@ -25,9 +27,6 @@ class DeveloperPageActivity : Activity() {
 
         val backlanding = findViewById<ImageButton>(R.id.btnBack)
             backlanding.setOnClickListener {
-            Log.e("FitCraft Home", "Back is Clicked")
-
-
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }
