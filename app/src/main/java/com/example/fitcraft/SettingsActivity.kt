@@ -31,14 +31,6 @@ class SettingsActivity : Activity() {
             startActivity(intent)
         }
 
-        val homebutton = findViewById<ImageView>(R.id.homebutton)
-        homebutton.setOnClickListener {
-            Log.e("FitCraft Home", "Home is Clicked")
-
-
-            val intent = Intent(this, LandingActivity::class.java)
-            startActivity(intent)
-        }
 
         val developerspage = findViewById<LinearLayout>(R.id.developers)
         developerspage.setOnClickListener {
@@ -48,8 +40,7 @@ class SettingsActivity : Activity() {
             val intent = Intent(this, DeveloperPageActivity::class.java)
             startActivity(intent)
         }
-        val logoutButton = findViewById<ImageView>(R.id.logout)
-        logoutButton?.setOnClickListener { v: View? -> showLogoutDialog() }
+
     }
 
     private fun showLogoutDialog() {

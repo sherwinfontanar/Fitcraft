@@ -75,7 +75,7 @@
             android:name=".UserProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".UserDashboardActivity"
+            android:name=".DeveloperPageActivity"
             android:exported="false" />
         <activity
             android:name=".TailorDashboardActivity"
