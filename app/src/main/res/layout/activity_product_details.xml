@@ -258,7 +258,7 @@
             android:layout_marginEnd="8dp"
             android:text="Add to Cart"
             android:textAllCaps="false"
-            android:backgroundTint="@color/two"
+            android:background="@drawable/rounded"
             android:textColor="@color/white"
             android:fontFamily="@font/poppins_semibold"/>
         <Button
@@ -268,7 +268,7 @@
             android:layout_weight="1"
             android:text="Buy Now"
             android:textAllCaps="false"
-            android:backgroundTint="#E01021"
+            android:background="@drawable/edit_button_background"
             android:textColor="@color/white"
             android:fontFamily="@font/poppins_semibold"/>
     </LinearLayout>

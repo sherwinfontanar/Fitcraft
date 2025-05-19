@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/four">
 
     <!-- Header with Profile Info -->
     <LinearLayout
@@ -42,16 +42,17 @@
                     android:layout_height="wrap_content"
                     android:text="Fontanar Tailoring Services"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textSize="24sp"
+                    android:fontFamily="@font/poppins_bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Edit Shop Profile"
                     android:textColor="@color/four"
+                    android:fontFamily="@font/poppins"
                     android:textSize="14sp"
-                    android:layout_marginTop="4dp" />
+                    android:layout_marginTop="5dp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -60,135 +61,33 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="80dp"
+        android:background="@color/four"
         app:layout_constraintTop_toBottomOf="@id/header_layout"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/four"
             android:orientation="vertical"
             android:padding="16dp">
-
-            <!-- Contact Information Section -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@color/white"
-                android:padding="16dp">
-
-                <!-- Email -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingVertical="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Email"
-                        android:textColor="@color/two"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_email"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="juanacruz@example.com"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@color/three" />
-                </LinearLayout>
-
-                <!-- Phone -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingVertical="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Phone"
-                        android:textColor="@color/two"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_phone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="+1 (555) 123-4567"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@color/three" />
-                </LinearLayout>
-
-                <!-- Address -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingVertical="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Address"
-                        android:textColor="@color/two"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Address has not been set"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-
-                    <Button
-                        android:id="@+id/btn_use_current_location"
-                        android:layout_width="wrap_content"
-                        android:layout_height="36dp"
-                        android:text="Use Current Location"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
-                        android:layout_marginTop="8dp"
-                        android:background="@color/two"
-                        android:paddingHorizontal="12dp" />
-                </LinearLayout>
-            </LinearLayout>
 
             <!-- Financial Details Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@color/white"
-                android:layout_marginTop="16dp"
+                android:background="@drawable/threeborder"
                 android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Financial Details"
-                    android:textColor="@color/two"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
+                    android:textColor="@color/one"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_semibold"
                     android:layout_marginBottom="16dp" />
 
                 <LinearLayout
@@ -203,24 +102,25 @@
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:gravity="center"
-                        android:background="@color/four"
+                        android:background="@drawable/edit_text_background"
                         android:padding="16dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Seller Balance"
-                            android:textColor="@color/two"
-                            android:textSize="14sp" />
+                            android:textColor="@color/one"
+                            android:fontFamily="@font/poppins_bold"
+                            android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/tv_seller_balance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="P520"
-                            android:textColor="@color/two"
+                            android:textColor="@color/one"
                             android:textSize="18sp"
-                            android:textStyle="bold"
+                            android:fontFamily="@font/poppins_semibold"
                             android:layout_marginTop="8dp" />
                     </LinearLayout>
 
@@ -235,24 +135,25 @@
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:gravity="center"
-                        android:background="@color/four"
+                        android:background="@drawable/edit_text_background"
                         android:padding="16dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="My Income"
-                            android:textColor="@color/two"
-                            android:textSize="14sp" />
+                            android:textColor="@color/one"
+                            android:fontFamily="@font/poppins_bold"
+                            android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/tv_my_income"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="P3820"
-                            android:textColor="@color/two"
+                            android:textColor="@color/one"
                             android:textSize="18sp"
-                            android:textStyle="bold"
+                            android:fontFamily="@font/poppins_semibold"
                             android:layout_marginTop="8dp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -263,7 +164,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@color/white"
+                android:background="@color/four"
                 android:layout_marginTop="16dp"
                 android:padding="16dp">
 
@@ -277,15 +178,16 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="My Sales"
-                        android:textColor="@color/two"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textColor="@color/one"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/poppins_bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="View All >"
-                        android:textColor="@color/two"
+                        android:textColor="@color/one"
+                        android:fontFamily="@font/poppins_light"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -303,7 +205,7 @@
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:gravity="center"
-                        android:background="@color/two">
+                        android:background="@drawable/rounded">
 
                         <ImageView
                             android:layout_width="32dp"
@@ -316,7 +218,8 @@
                             android:layout_height="wrap_content"
                             android:text="To Ship"
                             android:textColor="@color/white"
-                            android:textSize="12sp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:textSize="14sp"
                             android:layout_marginTop="4dp" />
                     </LinearLayout>
 
@@ -331,7 +234,7 @@
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:gravity="center"
-                        android:background="@color/two">
+                        android:background="@drawable/rounded">
 
                         <ImageView
                             android:layout_width="32dp"
@@ -344,7 +247,8 @@
                             android:layout_height="wrap_content"
                             android:text="Cancelled"
                             android:textColor="@color/white"
-                            android:textSize="12sp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:textSize="14sp"
                             android:layout_marginTop="4dp" />
                     </LinearLayout>
 
@@ -359,7 +263,7 @@
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:gravity="center"
-                        android:background="@color/two">
+                        android:background="@drawable/rounded">
 
                         <ImageView
                             android:layout_width="32dp"
@@ -372,11 +276,124 @@
                             android:layout_height="wrap_content"
                             android:text="Return/Refund"
                             android:textColor="@color/white"
-                            android:textSize="12sp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:textSize="14sp"
                             android:layout_marginTop="4dp" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+    <LinearLayout
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rounded_dashboard"
+        android:orientation="horizontal"
+        android:elevation="8dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:id="@+id/homebutton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/home"
+                android:clickable="true"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/home"
+                android:layout_marginVertical="5dp"
+                app:tint="#FFFFFF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Home"
+                android:textColor="@color/two"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/myshopbutton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginVertical="5dp"
+                android:src="@drawable/shop"
+                app:tint="#808080" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="My Shop"
+                android:textColor="@color/two"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ordersbutton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/orders"
+                android:layout_marginVertical="5dp"
+                app:tint="#808080" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Orders"
+                android:fontFamily="@font/poppins_semibold"
+                android:textColor="@color/two"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/logoutbutton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/logout"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/logout"
+                android:layout_marginVertical="5dp"
+                app:tint="#808080" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Logout"
+                android:textColor="@color/two"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
