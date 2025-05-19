@@ -1,11 +1,13 @@
 package com.example.fitcraft
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -14,12 +16,19 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class TailorProfileActivity : Activity() {
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_tailor_profile)
 
         val prefs = getSharedPreferences("AppPrefs", MODE_PRIVATE)
+
+        val order = findViewById<LinearLayout>(R.id.orders)
+        order.setOnClickListener {
+            val intent = Intent(this, TailorOrdersActivity::class.java)
+            startActivity(intent)
+        }
 
         setupNavigation()
 

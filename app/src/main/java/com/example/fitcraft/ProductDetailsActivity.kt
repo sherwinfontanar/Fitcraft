@@ -37,6 +37,7 @@ class ProductDetailsActivity : Activity() {
     private var productImage: String = ""
     private var bodyType: String = ""
 
+
     // Added for similar products functionality
     private lateinit var recyclerView: RecyclerView
     private lateinit var similarProductsAdapter: ProductsAdapter
@@ -356,6 +357,7 @@ class ProductDetailsActivity : Activity() {
                     if (productJson.getString("_id") == productId) continue
 
                     val product = TailorDashboardActivity.Product(
+
                         id = productJson.getString("_id"),
                         name = productJson.getString("productName"),
                         price = productJson.getDouble("productPrice"),
