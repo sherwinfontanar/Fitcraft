@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -20,7 +21,7 @@ import org.json.JSONArray
 
 class TailorDashboardActivity : Activity() {
 
-    private lateinit var uploadProductButton: Button
+    private lateinit var upload: LinearLayout
     private lateinit var productsRecyclerView: RecyclerView
     private lateinit var productsAdapter: ProductsAdapter
     private val productsList = mutableListOf<Product>()
@@ -31,12 +32,12 @@ class TailorDashboardActivity : Activity() {
         setContentView(R.layout.activity_tailor_dashboard)
 
         // Initialize views
-        uploadProductButton = findViewById(R.id.uploadProductButton)
+        upload = findViewById(R.id.upload)
         productsRecyclerView = findViewById(R.id.productsRecyclerView)
 
 
         // Set click listener for upload button
-        uploadProductButton.setOnClickListener {
+        upload.setOnClickListener {
             val intent = Intent(this, ProductUploadActivity::class.java)
             startActivity(intent)
         }
@@ -47,6 +48,7 @@ class TailorDashboardActivity : Activity() {
 
         // Initialize the products adapter
         setupProductsRecyclerView()
+        setupNavigation()
     }
 
     private fun setupProductsRecyclerView() {
@@ -138,6 +140,24 @@ class TailorDashboardActivity : Activity() {
         val description: String,
         val imageUrl: String
     )
+
+    private fun setupNavigation() {
+        findViewById<LinearLayout>(R.id.homebutton).setOnClickListener {
+            startActivity(Intent(this, TailorDashboardActivity::class.java))
+        }
+
+        findViewById<LinearLayout>(R.id.myshopbutton).setOnClickListener {
+            startActivity(Intent(this, TailorProfileActivity::class.java))
+        }
+
+        findViewById<LinearLayout>(R.id.ordersbutton).setOnClickListener {
+            startActivity(Intent(this, TailorProfileActivity::class.java))
+        }
+
+        findViewById<LinearLayout>(R.id.logoutbutton).setOnClickListener {
+            showLogoutDialog()
+        }
+    }
 
     private fun showLogoutDialog() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.activity_logout_dialog, null)

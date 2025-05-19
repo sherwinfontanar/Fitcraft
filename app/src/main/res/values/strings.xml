@@ -11,4 +11,15 @@
     <string name="sign_up">Sign Up</string>
     <string name="email_icon">Email icon</string>
     <string name="password_icon">Password icon</string>
+
+    <string-array name="body_types">
+        <item>Select Body Type</item>
+        <item>Hourglass</item>
+        <item>Bottom Hourglass</item>
+        <item>Top Hourglass</item>
+        <item>Spoon</item>
+        <item>Triangle</item>
+        <item>Inverted Triangle</item>
+        <item>Rectangle</item>
+    </string-array>
 </resources>
