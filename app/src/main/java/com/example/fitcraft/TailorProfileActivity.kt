@@ -40,6 +40,9 @@ class TailorProfileActivity : Activity() {
         findViewById<LinearLayout>(R.id.logoutbutton).setOnClickListener {
             showLogoutDialog()
         }
+        findViewById<TextView>(R.id.editShop).setOnClickListener {
+            startActivity(Intent(this, UserProfileActivity::class.java))
+        }
     }
 
     private fun showLogoutDialog() {

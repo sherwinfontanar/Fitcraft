@@ -125,13 +125,13 @@ class PurchasesActivity : Activity() {
     private fun updateActiveTab(activeTab: TextView, status: String) {
         // Reset all tabs to inactive
         listOf(tabToPay, tabToShip, tabToReceive, tabCompleted, tabReturns).forEach {
-            it.setTextColor(resources.getColor(android.R.color.darker_gray))
-            it.typeface = android.graphics.Typeface.DEFAULT
+            it.setTextColor(resources.getColor(R.color.three))
+            it.typeface = resources.getFont(R.font.poppins_semibold)
         }
 
         // Set active tab
-        activeTab.setTextColor(resources.getColor(android.R.color.holo_orange_dark))
-        activeTab.typeface = android.graphics.Typeface.DEFAULT_BOLD
+        activeTab.setTextColor(resources.getColor(R.color.one))
+        activeTab.typeface = resources.getFont(R.font.poppins_semibold)
 
         // Update current tab and fetch orders
         currentTab = status
