@@ -9,6 +9,7 @@ import android.graphics.Bitmap
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -26,13 +27,15 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import org.json.JSONObject
 import java.nio.charset.Charset
+import android.util.Base64
+import java.io.ByteArrayOutputStream
 import java.util.*
 
 private val IMAGE_PICK_CODE = 1000
 private val LOCATION_PERMISSION_REQUEST_CODE = 2000
 private val MAP_ACTIVITY_REQUEST_CODE = 3000
 
-class UserProfileActivity : Activity() {
+class UserProfileActivity<Uri> : Activity() {
     val REQUEST_IMAGE_CAPTURE = 1
     private lateinit var firstName: EditText
     private lateinit var middleName: EditText
@@ -57,6 +60,7 @@ class UserProfileActivity : Activity() {
 
     private val PICK_IMAGE_REQUEST = 1
     private var selectedImageBase64: String? = null
+    val REQUEST_GALLERY_IMAGE = 2
 
 
     @SuppressLint("MissingInflatedId")
@@ -115,8 +119,26 @@ class UserProfileActivity : Activity() {
 
         val btnChangePhoto: ImageButton = findViewById(R.id.btnChangePhoto)
         btnChangePhoto.setOnClickListener {
-            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE)
+            // Show an options dialog to choose camera or gallery
+            val options = arrayOf("Take Photo", "Choose from Gallery", "Cancel")
+
+            androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("Update Profile Picture")
+                .setItems(options) { dialog, which ->
+                    when (which) {
+                        0 -> {
+                            // Take photo with camera
+                            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                            startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE)
+                        }
+                        1 -> {
+                            // Choose from gallery
+                            val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                            startActivityForResult(galleryIntent, REQUEST_GALLERY_IMAGE)
+                        }
+                        2 -> dialog.dismiss()
+                    }
+                }.show()
         }
 
         val useLocationButton = findViewById<Button>(R.id.useLocationButton)
@@ -134,6 +156,15 @@ class UserProfileActivity : Activity() {
             val intent = Intent(this, LandingActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    // Convert bitmap to base64 string for API storage
+    private fun convertBitmapToBase64(bitmap: Bitmap): String {
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        // Compress the image to reduce size (80% quality is usually good)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream)
+        val byteArray = byteArrayOutputStream.toByteArray()
+        return Base64.encodeToString(byteArray, Base64.DEFAULT)
     }
 
 
@@ -292,17 +323,39 @@ class UserProfileActivity : Activity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+            // Handle camera image capture
             val imageBitmap = data?.extras?.get("data") as Bitmap
-            profilePic.setImageBitmap(imageBitmap) // Set the image in ImageView
+            profilePic.setImageBitmap(imageBitmap)
 
+            // Convert bitmap to base64
+            selectedImageBase64 = convertBitmapToBase64(imageBitmap)
 
+            // If user is not in edit mode, enable it
+            if (!isEditing) {
+                setEditing(true)
+                Toast.makeText(this, "Please save your changes", Toast.LENGTH_SHORT).show()
+            }
+        }
+        else if (requestCode == REQUEST_GALLERY_IMAGE && resultCode == Activity.RESULT_OK) {
+            // Handle gallery image selection
             try {
-                val baos = java.io.ByteArrayOutputStream()
-                imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-                val byteArray = baos.toByteArray()
-                selectedImageBase64 = android.util.Base64.encodeToString(byteArray, android.util.Base64.DEFAULT)
+                val imageUri: android.net.Uri? = data?.data
+                imageUri?.let {
+                    val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
+                    profilePic.setImageBitmap(bitmap)
+
+                    // Convert bitmap to base64
+                    selectedImageBase64 = convertBitmapToBase64(bitmap)
+
+                    // If user is not in edit mode, enable it
+                    if (!isEditing) {
+                        setEditing(true)
+                        Toast.makeText(this, "Please save your changes", Toast.LENGTH_SHORT).show()
+                    }
+                }
             } catch (e: Exception) {
-                Log.e("UserProfileActivity", "Error converting image to base64", e)
+                Log.e("UserProfileActivity", "Error handling gallery image", e)
+                Toast.makeText(this, "Error loading image: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
         else if (requestCode == MAP_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
@@ -354,6 +407,21 @@ class UserProfileActivity : Activity() {
                 street.setText(response.optString("street", ""))
                 building.setText(response.optString("buildingNumber", ""))
 
+                // Load profile picture if available
+                val profilePictureBase64 = response.optString("profilePicture", "")
+                if (profilePictureBase64.isNotEmpty()) {
+                    try {
+                        val decodedBytes = Base64.decode(profilePictureBase64, Base64.DEFAULT)
+                        val bitmap = android.graphics.BitmapFactory.decodeByteArray(
+                            decodedBytes, 0, decodedBytes.size
+                        )
+                        profilePic.setImageBitmap(bitmap)
+                        selectedImageBase64 = profilePictureBase64
+                    } catch (e: Exception) {
+                        Log.e("UserProfileActivity", "Error decoding profile picture", e)
+                    }
+                }
+
                 profileExists = true
                 setEditing(false)
 
@@ -401,6 +469,13 @@ class UserProfileActivity : Activity() {
             put("lastName", lastName.text.toString())
             put("email", email.text.toString())
             put("phoneNumber", phoneNumber.text.toString())
+
+            // Add profile picture if available
+            selectedImageBase64?.let {
+                if (it.isNotEmpty()) {
+                    put("profilePicture", it)
+                }
+            }
 
             // Address as a nested object
             val addressObject = JSONObject().apply {
