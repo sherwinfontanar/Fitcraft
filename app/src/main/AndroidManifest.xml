@@ -24,6 +24,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".TailorEditActivity"
+            android:exported="false" />
+        <activity
             android:name=".TailorOrdersActivity"
             android:exported="false" />
         <activity
