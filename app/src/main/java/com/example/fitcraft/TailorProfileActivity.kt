@@ -50,7 +50,7 @@ class TailorProfileActivity : Activity() {
             showLogoutDialog()
         }
         findViewById<TextView>(R.id.editShop).setOnClickListener {
-            startActivity(Intent(this, UserProfileActivity::class.java))
+            startActivity(Intent(this, TailorEditActivity::class.java))
         }
     }
 
